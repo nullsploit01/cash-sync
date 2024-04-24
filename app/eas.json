@@ -4,13 +4,11 @@
   },
   "build": {
     "production": {
-      "production": {
-        "android": {
-          "image": "latest"
-        },
-        "ios": {
-          "image": "latest"
-        }
+      "android": {
+        "image": "latest"
+      },
+      "ios": {
+        "image": "latest"
       }
     },
     "preview": {
