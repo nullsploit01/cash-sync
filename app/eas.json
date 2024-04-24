@@ -1,0 +1,15 @@
+{
+  "build": {
+    "production": {
+      "node": "20.0.0"
+    },
+    "preview": {
+      "extends": "production",
+      "distribution": "internal"
+    },
+    "development": {
+      "extends": "production",
+      "distribution": "internal"
+    }
+  }
+}
