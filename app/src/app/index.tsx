@@ -1,5 +1,4 @@
 import { Text, View } from 'tamagui'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 const HomePage = () => {
   return (
