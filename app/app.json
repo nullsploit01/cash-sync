@@ -35,6 +35,14 @@
       }
     },
     "owner": "nullsploit01",
-    "plugins": ["expo-font"]
+    "plugins": [
+      "expo-font",
+      [
+        "expo-dev-launcher",
+        {
+          "launchModeExperimental": "most-recent"
+        }
+      ]
+    ]
   }
 }
