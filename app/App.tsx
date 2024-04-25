@@ -1,10 +1,8 @@
-import { TamaguiProvider, View } from '@tamagui/core';
-import { Button } from 'tamagui';
-
+import { Avatar, XStack, TamaguiProvider, Text } from 'tamagui';
 import { tamaguiConfig } from './tamagui.config';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 export default function App() {
   const [loaded] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
@@ -22,9 +20,10 @@ export default function App() {
   }
 
   return (
-    <TamaguiProvider config={tamaguiConfig}>
-      <View backgroundColor='red' />
-      <Button>asas</Button>
-    </TamaguiProvider>
+    <SafeAreaView>
+      <TamaguiProvider config={tamaguiConfig}>
+        <Text>Sup Bro</Text>
+      </TamaguiProvider>
+    </SafeAreaView>
   );
 }
