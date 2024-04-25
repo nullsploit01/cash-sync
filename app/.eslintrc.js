@@ -3,10 +3,8 @@ module.exports = {
       'universe',
       'universe/shared/typescript-analysis',
       'plugin:react-hooks/recommended',
-      'plugin:testing-library/react',
-      'plugin:jest-dom/recommended'
     ],
-    plugins: ['jest', 'testing-library', 'unused-imports'],
+    plugins: ['unused-imports'],
     overrides: [
       {
         files: ['*.ts', '*.tsx', '*.d.ts'],

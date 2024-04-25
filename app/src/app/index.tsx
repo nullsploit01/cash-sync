@@ -1,4 +1,5 @@
-import { Text, View } from 'tamagui';
+import { Text, View } from 'tamagui'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const HomePage = () => {
   return (
@@ -7,12 +8,12 @@ const HomePage = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100%',
+        height: '100%'
       }}
     >
       <Text>Sup Brooo</Text>
     </View>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

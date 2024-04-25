@@ -1,24 +1,24 @@
-import { useFonts } from 'expo-font';
-import { Slot } from 'expo-router';
-import { useEffect } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { TamaguiProvider, Text } from 'tamagui';
-import tamaguiConfig from 'tamagui.config';
+import { useFonts } from 'expo-font'
+import { Slot } from 'expo-router'
+import { useEffect } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { TamaguiProvider } from 'tamagui'
+import tamaguiConfig from 'tamagui.config'
 
 const Root = () => {
   const [loaded] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
-  });
+    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf')
+  })
 
   useEffect(() => {
     if (loaded) {
       // hide splash screen here
     }
-  }, [loaded]);
+  }, [loaded])
 
   if (!loaded) {
-    return null;
+    return null
   }
 
   return (
@@ -27,7 +27,7 @@ const Root = () => {
         <Slot />
       </TamaguiProvider>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Root;
+export default Root
