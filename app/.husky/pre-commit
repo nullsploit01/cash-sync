@@ -2,3 +2,4 @@
 
 cd app
 npx --no-install lint-staged
+npx expo-doctor
