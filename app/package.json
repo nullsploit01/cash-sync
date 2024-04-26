@@ -8,8 +8,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web -c",
     "ts:check": "tsc",
-    "prettier": "prettier --write ./**/src/**/*{js,ts,jsx,tsx}",
-    "lint": "eslint ./src/**/*{js,ts,jsx,tsx} --fix",
+    "prettier:fix": "prettier --write ./**/src/**/*{js,ts,jsx,tsx}",
+    "lint:fix": "eslint ./src/**/*{js,ts,jsx,tsx} --fix",
     "prepare": "cd .. && husky app/.husky"
   },
   "dependencies": {
@@ -47,8 +47,8 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
-      "npm run lint",
-      "npm run prettier"
+      "npm run lint:fix",
+      "npm run prettier:fix"
     ]
   },
   "private": true
