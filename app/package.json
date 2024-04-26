@@ -4,8 +4,8 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start -c",
-    "android": "expo start --android -c",
-    "ios": "expo start --ios -c",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web -c",
     "ts:check": "tsc",
     "prettier": "prettier --write ./**/src/**/*{js,ts,jsx,tsx}",
