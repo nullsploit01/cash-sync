@@ -1,4 +1,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 cd app
-npx --no-install lint-staged
+npx expo-doctor
