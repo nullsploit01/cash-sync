@@ -1,8 +1,9 @@
 import { Stack } from 'expo-router'
-import { XStack } from 'tamagui'
+import { Separator, XStack } from 'tamagui'
 
 import Layout from 'src/components/layout'
 import BalanceCard from 'src/components/molecules/balance-card'
+import EntryCard from 'src/components/molecules/entry-card'
 
 const HomePage = () => {
   return (
@@ -11,6 +12,8 @@ const HomePage = () => {
       <XStack paddingHorizontal="$3" alignSelf="center">
         <BalanceCard />
       </XStack>
+      <Separator marginVertical={10} />
+      <EntryCard />
     </Layout>
   )
 }

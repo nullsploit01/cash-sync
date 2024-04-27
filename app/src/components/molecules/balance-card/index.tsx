@@ -11,8 +11,8 @@ const BalanceCard = () => {
         </SizableText>
         <Separator marginTop={5} />
         <YStack paddingTop={10} gap={8}>
-          <SizableText size="$5">Net In</SizableText>
-          <SizableText size="$5">Net Out</SizableText>
+          <SizableText size="$5">Total In</SizableText>
+          <SizableText size="$5">Total Out</SizableText>
         </YStack>
       </Card.Header>
     </Card>
