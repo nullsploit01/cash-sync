@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font'
-import { Slot } from 'expo-router'
+import { Stack } from 'expo-router'
 import { useEffect } from 'react'
 import { TamaguiProvider } from 'tamagui'
 import tamaguiConfig from 'tamagui.config'
@@ -22,7 +22,7 @@ const Root = () => {
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      <Slot />
+      <Stack screenOptions={{ headerTitleStyle: { fontWeight: '500' } }} />
     </TamaguiProvider>
   )
 }

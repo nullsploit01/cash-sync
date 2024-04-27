@@ -1,11 +1,9 @@
-import Constants from 'expo-constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
     minHeight: '100%',
-    position: 'relative',
-    paddingTop: Constants.statusBarHeight
+    position: 'relative'
   },
   activityButtonStack: {
     bottom: 0,
