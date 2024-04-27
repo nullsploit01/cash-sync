@@ -2,7 +2,7 @@ import { Card, Separator, SizableText, YStack } from 'tamagui'
 
 const BalanceCard = () => {
   return (
-    <Card elevate width="100%" style={{ marginTop: 10 }} bordered>
+    <Card elevate width="100%" style={{ marginVertical: 10 }}>
       <Card.Header padded>
         <SizableText size="$7" fontWeight="700">
           Net Balance
