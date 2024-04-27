@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     position: 'absolute',
-    backgroundColor: '#fff',
+    backgroundColor: '#FEFBF6',
     justifyContent: 'center',
     padding: 30
   }

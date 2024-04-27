@@ -1,8 +1,7 @@
 import { useFonts } from 'expo-font'
 import { Slot } from 'expo-router'
 import { useEffect } from 'react'
-// import { SafeAreaView } from 'react-native-safe-area-context'
-import { TamaguiProvider, View } from 'tamagui'
+import { TamaguiProvider } from 'tamagui'
 import tamaguiConfig from 'tamagui.config'
 
 const Root = () => {
@@ -22,11 +21,9 @@ const Root = () => {
   }
 
   return (
-    <View>
-      <TamaguiProvider config={tamaguiConfig}>
-        <Slot />
-      </TamaguiProvider>
-    </View>
+    <TamaguiProvider config={tamaguiConfig}>
+      <Slot />
+    </TamaguiProvider>
   )
 }
 
