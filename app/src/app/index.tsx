@@ -1,6 +1,7 @@
-import Layout from '@/components/layout'
-import BalanceCard from '@/components/molecules/balance-card'
 import { XStack } from 'tamagui'
+
+import Layout from 'src/components/layout'
+import BalanceCard from 'src/components/molecules/balance-card'
 
 const HomePage = () => {
   return (

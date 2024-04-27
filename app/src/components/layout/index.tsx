@@ -1,6 +1,7 @@
-import { ILayoutProps } from '@/types/components/layout'
 import React from 'react'
 import { Button, ScrollView, View, XStack } from 'tamagui'
+
+import { ILayoutProps } from 'src/types/components/layout'
 
 import { styles } from './styles'
 
