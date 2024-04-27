@@ -4,7 +4,7 @@ import { XStack } from 'tamagui'
 
 const HomePage = () => {
   return (
-    <Layout>
+    <Layout showEntryButtons>
       <XStack padding="$3" alignSelf="center">
         <BalanceCard />
       </XStack>

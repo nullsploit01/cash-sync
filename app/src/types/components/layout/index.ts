@@ -1,3 +1,5 @@
 import { PropsWithChildren } from 'react'
 
-export interface ILayoutProps extends PropsWithChildren {}
+export interface ILayoutProps extends PropsWithChildren {
+  showEntryButtons?: boolean
+}
