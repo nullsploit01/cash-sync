@@ -1,16 +1,17 @@
 import React from 'react'
 import { ScrollView, View } from 'tamagui'
 
-import AddEntryMenu from 'src/components/molecules/add-entry-menu'
 import { ILayoutProps } from 'src/types/components/layout'
 
-import { styles } from './styles'
-
-const Layout = ({ children, showEntryButtons = false }: ILayoutProps) => {
+const Layout = ({ children, footer }: ILayoutProps) => {
   return (
-    <View style={styles.container}>
+    <View minHeight="100%" position="relative">
       <ScrollView>{children}</ScrollView>
-      {showEntryButtons && <AddEntryMenu />}
+      {footer && (
+        <View bottom={0} position="absolute" display="flex" justifyContent="center" width="100%">
+          {footer}
+        </View>
+      )}
     </View>
   )
 }

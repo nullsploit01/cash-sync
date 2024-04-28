@@ -2,12 +2,13 @@ import { Stack } from 'expo-router'
 import { Separator, XStack } from 'tamagui'
 
 import Layout from 'src/components/layout'
+import AddEntryMenu from 'src/components/molecules/add-entry-menu'
 import BalanceCard from 'src/components/molecules/balance-card'
 import Entries from 'src/components/organisms/entries'
 
 const HomePage = () => {
   return (
-    <Layout showEntryButtons>
+    <Layout footer={<AddEntryMenu />}>
       <Stack.Screen options={{ title: 'Your Expenses' }} />
       <XStack paddingHorizontal="$3" marginVertical="$3" alignSelf="center" width="100%">
         <BalanceCard />

@@ -1,10 +1,8 @@
 import { Card, Separator, SizableText, YStack } from 'tamagui'
 
-import { styles } from './style'
-
 const BalanceCard = () => {
   return (
-    <Card elevate style={styles.container}>
+    <Card elevate marginVertical={10} width="100%">
       <Card.Header padded>
         <SizableText size="$7" fontWeight="700">
           Net Balance

@@ -5,19 +5,17 @@ import { EntryTypes } from 'src/constants/entry-types'
 import { Routes } from 'src/constants/routes'
 import { AddEntryTypes } from 'src/types/components/molecules'
 
-import { styles } from './style'
-
 const AddEntryMenu = () => {
   const handleEntryButtonPress = (entryType: AddEntryTypes) => {
     router.navigate({ pathname: Routes.AddEntryPage.link, params: { entryType } })
   }
 
   return (
-    <XStack gap="$size.8" style={styles.container}>
-      <Button onPress={() => handleEntryButtonPress(EntryTypes.cashIn)} size="$5">
+    <XStack justifyContent="space-between" padding={20} backgroundColor="#FEFBF6">
+      <Button width="45%" onPress={() => handleEntryButtonPress(EntryTypes.cashIn)} size="$5">
         Cash In
       </Button>
-      <Button onPress={() => handleEntryButtonPress(EntryTypes.cashOut)} size="$5">
+      <Button width="45%" onPress={() => handleEntryButtonPress(EntryTypes.cashOut)} size="$5">
         Cash Out
       </Button>
     </XStack>

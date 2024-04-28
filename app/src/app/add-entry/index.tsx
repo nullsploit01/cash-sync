@@ -6,6 +6,7 @@ import { View } from 'tamagui'
 import InputField from 'src/components/atoms/input'
 import PressableText from 'src/components/atoms/pressable-text'
 import Layout from 'src/components/layout'
+import SaveEntryMenu from 'src/components/molecules/save-entry-menu'
 import { EntryTypes } from 'src/constants/entry-types'
 import useDatePicker from 'src/hooks/use-date-picker'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
@@ -35,7 +36,7 @@ const AddEntryPage = () => {
   }, [])
 
   return (
-    <Layout>
+    <Layout footer={<SaveEntryMenu />}>
       <Stack.Screen options={{ title: _title.title, headerTitleStyle: { color: _title.color } }} />
       <View paddingHorizontal="$3">
         <View
