@@ -1,19 +1,42 @@
 import { CalendarDays, ChevronDown, Clock4 } from '@tamagui/lucide-icons'
-import { Stack } from 'expo-router'
+import { Stack, useLocalSearchParams } from 'expo-router'
+import { useEffect, useState } from 'react'
 import { View } from 'tamagui'
 
 import InputField from 'src/components/atoms/input'
 import PressableText from 'src/components/atoms/pressable-text'
 import Layout from 'src/components/layout'
+import { EntryTypes } from 'src/constants/entry-types'
 import useDatePicker from 'src/hooks/use-date-picker'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 
 const AddEntryPage = () => {
+  const params = useLocalSearchParams()
   const { date, showDatepicker } = useDatePicker()
+
+  const [_title, setTitle] = useState({ title: '', color: '' })
+
+  useEffect(() => {
+    const { entryType } = params
+
+    switch (entryType) {
+      case EntryTypes.cashIn:
+        setTitle({ title: 'Add Cash In Entry', color: 'green' })
+        break
+
+      case EntryTypes.cashOut:
+        setTitle({ title: 'Add Cash Out Entry', color: 'red' })
+        break
+
+      default:
+        setTitle({ title: 'Add Cash In Entry', color: 'black' })
+        break
+    }
+  }, [])
 
   return (
     <Layout>
-      <Stack.Screen options={{ title: 'Add Entry' }} />
+      <Stack.Screen options={{ title: _title.title, headerTitleStyle: { color: _title.color } }} />
       <View paddingHorizontal="$3">
         <View
           display="flex"
