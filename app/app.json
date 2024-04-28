@@ -24,7 +24,6 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "softwareKeyboardLayoutMode": "pan",
       "package": "inkeep.nullsploit.cashsync" // update identifier after bug fix
     },
     "web": {
