@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <Layout showEntryButtons>
       <Stack.Screen options={{ title: 'Your Expenses' }} />
-      <XStack paddingHorizontal="$3" alignSelf="center">
+      <XStack paddingHorizontal="$3" marginVertical="$3" alignSelf="center" width="100%">
         <BalanceCard />
       </XStack>
       <Separator marginVertical={10} />
