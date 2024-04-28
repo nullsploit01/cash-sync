@@ -10,8 +10,8 @@ const Entries = () => {
     <View marginBottom="$15">
       {entries.map((entry, index) => {
         return (
-          <View marginBottom="$3">
-            <EntryCard entry={entry} key={index} />
+          <View key={index} marginBottom="$3">
+            <EntryCard entry={entry} />
           </View>
         )
       })}

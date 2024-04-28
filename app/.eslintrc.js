@@ -4,11 +4,13 @@ module.exports = {
   overrides: [
     {
       files: ['*.ts', '*.tsx', '*.d.ts'],
+
       parserOptions: {
         project: './tsconfig.json'
       }
     }
   ],
+  ignorePatterns: ['*.config.js', '.eslintrc.cjs', '*.config.ts'],
   settings: {
     'import/resolver': {
       typescript: {} // this loads <rootdir>/tsconfig.json to ESLint

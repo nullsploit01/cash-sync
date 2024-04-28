@@ -82,6 +82,7 @@ const useEntryStore = create<IEntryState & IEntryActions>((set) => ({
       balanceOnEntry: 420
     }
   ],
+
   addEntry: (entry) => set((state) => ({ entries: [...state.entries, entry] }))
 }))
 
