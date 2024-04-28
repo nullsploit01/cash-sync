@@ -1,7 +1,8 @@
 import { CalendarDays, ChevronDown, Clock4 } from '@tamagui/lucide-icons'
 import { Stack } from 'expo-router'
-import { Input, Text, View } from 'tamagui'
+import { Text, View } from 'tamagui'
 
+import InputField from 'src/components/atoms/input'
 import Layout from 'src/components/layout'
 import useDatePicker from 'src/hooks/use-date-picker'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
@@ -41,7 +42,7 @@ const AddEntryPage = () => {
           </View>
         </View>
         <View paddingVertical="$3">
-          <Input autoFocus placeholder="Amount" borderColor="black" size="$5" />
+          <InputField autoFocus keyboardType="number-pad" placeholder="Amount" size="$5" />
         </View>
       </View>
     </Layout>
