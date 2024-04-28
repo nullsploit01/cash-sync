@@ -3,7 +3,7 @@ import { Separator, XStack } from 'tamagui'
 
 import Layout from 'src/components/layout'
 import BalanceCard from 'src/components/molecules/balance-card'
-import EntryCard from 'src/components/molecules/entry-card'
+import Entries from 'src/components/organisms/entries'
 
 const HomePage = () => {
   return (
@@ -13,7 +13,7 @@ const HomePage = () => {
         <BalanceCard />
       </XStack>
       <Separator marginVertical={10} />
-      <EntryCard />
+      <Entries />
     </Layout>
   )
 }
