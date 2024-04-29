@@ -1,7 +1,7 @@
 import { CalendarDays, ChevronDown, Clock4 } from '@tamagui/lucide-icons'
 import { router, Stack, useLocalSearchParams } from 'expo-router'
-import { useEffect, useState } from 'react'
-import { View } from 'tamagui'
+import { Fragment, useEffect, useState } from 'react'
+import { Text, View, XStack } from 'tamagui'
 
 import InputField from 'src/components/atoms/input'
 import PressableText from 'src/components/atoms/pressable-text'
@@ -19,7 +19,7 @@ const AddEntryPage = () => {
   const params = useLocalSearchParams()
   const { date, showDatepicker } = useDatePicker()
 
-  const [_entry, setEntry] = useState<IEntry>()
+  const [_entry, setEntry] = useState<IEntry>({ paymentMode: 'online' } as IEntry)
   const [_title, setTitle] = useState({ title: '', color: '' })
 
   const { addEntry, netWorth } = useEntryStore()
@@ -47,7 +47,7 @@ const AddEntryPage = () => {
       amount: _entry.amount,
       remark: _entry.remark,
       enteredOn: new Date(date),
-      paymentMode: 'online',
+      paymentMode: _entry.paymentMode,
       balanceOnEntry: getBalanceOnEntry(),
       type: params.entryType as AddEntryTypes
     }
@@ -120,19 +120,52 @@ const AddEntryPage = () => {
             size="$5"
           />
           {!!_entry && !!_entry.amount && (
-            <InputField
-              onChange={(e) => {
-                const value = e.nativeEvent.text
-                setEntry((prev) => {
-                  return { ...prev, remark: value }
-                })
-              }}
-              autoComplete="off"
-              value={_entry?.remark}
-              placeholder="Remark"
-              size="$5"
-              marginVertical="$5"
-            />
+            <Fragment>
+              <InputField
+                onChange={(e) => {
+                  const value = e.nativeEvent.text
+                  setEntry((prev) => {
+                    return { ...prev, remark: value }
+                  })
+                }}
+                autoComplete="off"
+                value={_entry?.remark}
+                placeholder="Remark"
+                size="$5"
+                marginVertical="$5"
+              />
+              <View>
+                <Text>Payment Mode</Text>
+                <XStack gap="$3" marginVertical="$3">
+                  <View
+                    onPress={() => {
+                      setEntry((prev) => {
+                        return { ...prev, paymentMode: 'online' }
+                      })
+                    }}
+                    backgroundColor={_entry.paymentMode === 'online' ? '$green8' : '$gray6'}
+                    paddingVertical="$1.5"
+                    paddingHorizontal="$3"
+                    borderRadius="$6"
+                  >
+                    <Text>Online</Text>
+                  </View>
+                  <View
+                    onPress={() => {
+                      setEntry((prev) => {
+                        return { ...prev, paymentMode: 'cash' }
+                      })
+                    }}
+                    backgroundColor={_entry.paymentMode === 'cash' ? '$green8' : '$gray6'}
+                    paddingVertical="$1.5"
+                    paddingHorizontal="$3"
+                    borderRadius="$6"
+                  >
+                    <Text>Cash</Text>
+                  </View>
+                </XStack>
+              </View>
+            </Fragment>
           )}
         </View>
       </View>
