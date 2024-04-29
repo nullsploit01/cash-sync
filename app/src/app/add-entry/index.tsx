@@ -1,5 +1,5 @@
 import { CalendarDays, ChevronDown, Clock4 } from '@tamagui/lucide-icons'
-import { Stack, useLocalSearchParams } from 'expo-router'
+import { router, Stack, useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { View } from 'tamagui'
 
@@ -8,14 +8,20 @@ import PressableText from 'src/components/atoms/pressable-text'
 import Layout from 'src/components/layout'
 import SaveEntryMenu from 'src/components/molecules/save-entry-menu'
 import { EntryTypes } from 'src/constants/entry-types'
+import { Routes } from 'src/constants/routes'
 import useDatePicker from 'src/hooks/use-date-picker'
+import useEntryStore from 'src/stores'
+import { IEntry } from 'src/types/stores'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 
 const AddEntryPage = () => {
   const params = useLocalSearchParams()
   const { date, showDatepicker } = useDatePicker()
 
+  const [_entry, setEntry] = useState<IEntry>()
   const [_title, setTitle] = useState({ title: '', color: '' })
+
+  const { addEntry } = useEntryStore()
 
   useEffect(() => {
     const { entryType } = params
@@ -35,8 +41,21 @@ const AddEntryPage = () => {
     }
   }, [])
 
+  const _addEntry = () => {
+    const entry: IEntry = {
+      amount: _entry.amount,
+      remark: _entry.remark,
+      enteredOn: new Date(date),
+      paymentMode: 'online',
+      balanceOnEntry: +_entry.amount
+    }
+
+    addEntry(entry)
+    router.navigate({ pathname: Routes.HomePage.link })
+  }
+
   return (
-    <Layout footer={<SaveEntryMenu />}>
+    <Layout footer={<SaveEntryMenu onSave={_addEntry} />}>
       <Stack.Screen options={{ title: _title.title, headerTitleStyle: { color: _title.color } }} />
       <View paddingHorizontal="$3">
         <View
@@ -61,7 +80,35 @@ const AddEntryPage = () => {
           </PressableText>
         </View>
         <View paddingVertical="$3">
-          <InputField autoFocus keyboardType="number-pad" placeholder="Amount" size="$5" />
+          <InputField
+            onChange={(e) => {
+              const value = e.nativeEvent.text?.replace(/[^0-9]/g, '')
+              setEntry((prev) => {
+                return { ...prev, amount: value }
+              })
+            }}
+            autoComplete="off"
+            value={_entry?.amount}
+            autoFocus
+            keyboardType="numeric"
+            placeholder="Amount"
+            size="$5"
+          />
+          {!!_entry && !!_entry.amount && (
+            <InputField
+              onChange={(e) => {
+                const value = e.nativeEvent.text
+                setEntry((prev) => {
+                  return { ...prev, remark: value }
+                })
+              }}
+              autoComplete="off"
+              value={_entry?.remark}
+              placeholder="Remark"
+              size="$5"
+              marginVertical="$5"
+            />
+          )}
         </View>
       </View>
     </Layout>

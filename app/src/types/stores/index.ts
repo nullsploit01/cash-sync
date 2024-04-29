@@ -1,10 +1,10 @@
-export type EntryTypes = 'cash' | 'online'
+export type PaymentModes = 'cash' | 'online'
 
 export interface IEntry {
-  amount: number
+  amount: string
   remark: string
   enteredOn: Date
-  type: EntryTypes
+  paymentMode: PaymentModes
   balanceOnEntry: number
 }
 

@@ -1,12 +1,14 @@
 import { Button, XStack } from 'tamagui'
 
-const SaveEntryMenu = () => {
+import { ISaveEntryMenuProps } from 'src/types/components/molecules'
+
+const SaveEntryMenu = ({ onSave, onSaveAndNew }: ISaveEntryMenuProps) => {
   return (
     <XStack justifyContent="space-between" padding={20} backgroundColor="#FEFBF6">
-      <Button width="55%" size="$5">
+      <Button onPress={onSaveAndNew} width="55%" size="$5">
         Save & Add New
       </Button>
-      <Button width="35%" size="$5">
+      <Button onPress={onSave} width="35%" size="$5">
         Save
       </Button>
     </XStack>

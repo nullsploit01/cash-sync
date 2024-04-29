@@ -5,3 +5,8 @@ export type AddEntryTypes = 'CASH_IN' | 'CASH_OUT'
 export interface IEntryCardProps {
   entry: IEntry
 }
+
+export interface ISaveEntryMenuProps {
+  onSave?: () => void
+  onSaveAndNew?: () => void
+}

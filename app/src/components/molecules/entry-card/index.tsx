@@ -12,7 +12,7 @@ const EntryCard = ({ entry }: IEntryCardProps) => {
       <Card>
         <Card.Header paddingHorizontal="$3">
           <XStack alignItems="center" justifyContent="space-between">
-            <Text>{entry.type}</Text>
+            <Text>{entry.paymentMode}</Text>
             <YStack alignItems="flex-end">
               <Text>{entry.amount}</Text>
               <Text>Balance: {entry.balanceOnEntry}</Text>
