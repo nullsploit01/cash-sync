@@ -10,7 +10,8 @@ import SaveEntryMenu from 'src/components/molecules/save-entry-menu'
 import { EntryTypes } from 'src/constants/entry-types'
 import { Routes } from 'src/constants/routes'
 import useDatePicker from 'src/hooks/use-date-picker'
-import useEntryStore from 'src/stores'
+import useEntryStore from 'src/stores/use-entry'
+import { AddEntryTypes } from 'src/types/components/molecules'
 import { IEntry } from 'src/types/stores'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 
@@ -21,7 +22,7 @@ const AddEntryPage = () => {
   const [_entry, setEntry] = useState<IEntry>()
   const [_title, setTitle] = useState({ title: '', color: '' })
 
-  const { addEntry } = useEntryStore()
+  const { addEntry, netWorth } = useEntryStore()
 
   useEffect(() => {
     const { entryType } = params
@@ -47,10 +48,25 @@ const AddEntryPage = () => {
       remark: _entry.remark,
       enteredOn: new Date(date),
       paymentMode: 'online',
-      balanceOnEntry: +_entry.amount
+      balanceOnEntry: getBalanceOnEntry(),
+      type: params.entryType as AddEntryTypes
     }
 
     addEntry(entry)
+  }
+
+  const getBalanceOnEntry = () => {
+    const { entryType } = params
+
+    if (!_entry?.amount) {
+      return 0
+    }
+
+    if (entryType === EntryTypes.cashOut) {
+      return netWorth.netBalance - +_entry.amount
+    }
+
+    return netWorth.netBalance + +_entry.amount
   }
 
   const onSave = () => {

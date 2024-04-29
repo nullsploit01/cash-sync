@@ -1,7 +1,7 @@
 import { View } from 'tamagui'
 
 import EntryCard from 'src/components/molecules/entry-card'
-import useEntryStore from 'src/stores'
+import useEntryStore from 'src/stores/use-entry'
 
 const Entries = () => {
   const { entries } = useEntryStore()

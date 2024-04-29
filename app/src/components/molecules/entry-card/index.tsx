@@ -14,7 +14,7 @@ const EntryCard = ({ entry }: IEntryCardProps) => {
           <XStack alignItems="center" justifyContent="space-between">
             <Text>{entry.paymentMode}</Text>
             <YStack alignItems="flex-end">
-              <Text>{entry.amount}</Text>
+              <Text color={entry.type === 'CASH_IN' ? 'green' : 'red'}>{entry.amount}</Text>
               <Text>Balance: {entry.balanceOnEntry}</Text>
             </YStack>
           </XStack>
