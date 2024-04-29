@@ -12,7 +12,14 @@ const EntryCard = ({ entry }: IEntryCardProps) => {
       <Card>
         <Card.Header paddingHorizontal="$3">
           <XStack alignItems="center" justifyContent="space-between">
-            <Text>{entry.paymentMode}</Text>
+            <View
+              backgroundColor="$gray6"
+              paddingVertical="$1"
+              paddingHorizontal="$2"
+              borderRadius="$2"
+            >
+              <Text theme="alt1">{entry.paymentMode === 'online' ? 'Online' : 'Cash'}</Text>
+            </View>
             <YStack alignItems="flex-end">
               <Text color={entry.type === 'CASH_IN' ? 'green' : 'red'}>{entry.amount}</Text>
               <Text>Balance: {entry.balanceOnEntry}</Text>

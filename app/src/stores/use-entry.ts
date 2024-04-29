@@ -32,7 +32,7 @@ const useEntryStore = create<IEntryState & IEntryActions>((set) => ({
       netBalance = totalIn - totalOut
 
       return {
-        entries,
+        entries: entries.sort((a, b) => b.enteredOn.getTime() - a.enteredOn.getTime()),
         netWorth: {
           netBalance,
           totalIn,
