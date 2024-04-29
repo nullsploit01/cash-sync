@@ -51,11 +51,20 @@ const AddEntryPage = () => {
     }
 
     addEntry(entry)
+  }
+
+  const onSave = () => {
+    _addEntry()
     router.navigate({ pathname: Routes.HomePage.link })
   }
 
+  const onSaveAndNew = () => {
+    _addEntry()
+    router.replace({ pathname: Routes.AddEntryPage.link, params })
+  }
+
   return (
-    <Layout footer={<SaveEntryMenu onSave={_addEntry} />}>
+    <Layout footer={<SaveEntryMenu onSave={onSave} onSaveAndNew={onSaveAndNew} />}>
       <Stack.Screen options={{ title: _title.title, headerTitleStyle: { color: _title.color } }} />
       <View paddingHorizontal="$3">
         <View
