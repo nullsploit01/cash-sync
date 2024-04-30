@@ -3,6 +3,7 @@ import { AddEntryTypes } from 'src/types/components/molecules'
 export type PaymentModes = 'cash' | 'online'
 
 export interface IEntry {
+  id: string
   amount: string
   remark: string
   enteredOn: Date

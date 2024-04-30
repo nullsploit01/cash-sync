@@ -14,13 +14,15 @@ import useEntryStore from 'src/stores/use-entry'
 import { AddEntryTypes } from 'src/types/components/molecules'
 import { IEntry } from 'src/types/stores'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
+import { generateRandomId } from 'src/utils/general'
 
 const AddEntryPage = () => {
   const params = useLocalSearchParams()
   const { date, showDatepicker } = useDatePicker()
 
-  const [_entry, setEntry] = useState<IEntry>({ paymentMode: 'online' } as IEntry)
   const [_title, setTitle] = useState({ title: '', color: '' })
+  const [_entry, setEntry] = useState<IEntry>({ paymentMode: 'online' } as IEntry)
+  const [_entryValidation, setEntryValidation] = useState({ amount: true })
 
   const { addEntry, netWorth } = useEntryStore()
 
@@ -42,8 +44,13 @@ const AddEntryPage = () => {
     }
   }, [])
 
+  useEffect(() => {
+    setEntryValidation({ amount: true })
+  }, [_entry])
+
   const _addEntry = () => {
     const entry: IEntry = {
+      id: generateRandomId(),
       amount: _entry.amount,
       remark: _entry.remark,
       enteredOn: new Date(date),
@@ -70,11 +77,21 @@ const AddEntryPage = () => {
   }
 
   const onSave = () => {
+    if (!_entry.amount?.trim()) {
+      setEntryValidation({ amount: false })
+      return
+    }
+
     _addEntry()
     router.navigate({ pathname: Routes.HomePage.link })
   }
 
   const onSaveAndNew = () => {
+    if (!_entry.amount?.trim()) {
+      setEntryValidation({ amount: false })
+      return
+    }
+
     _addEntry()
     router.replace({ pathname: Routes.AddEntryPage.link, params })
   }
@@ -112,9 +129,11 @@ const AddEntryPage = () => {
                 return { ...prev, amount: value }
               })
             }}
+            autoFocus
+            error={!_entryValidation.amount}
+            errorMessage="Please enter a valid amount, eg 132"
             autoComplete="off"
             value={_entry?.amount}
-            autoFocus
             keyboardType="numeric"
             placeholder="Amount"
             size="$5"
