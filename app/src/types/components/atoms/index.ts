@@ -10,4 +10,5 @@ export interface IPressableTextProps extends ViewProps {
   children: ReactNode
   endIcon?: ReactNode
   startIcon?: ReactNode
+  size?: number
 }

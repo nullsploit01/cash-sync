@@ -1,11 +1,12 @@
 import { Stack, useLocalSearchParams } from 'expo-router'
 import React, { useEffect, useState } from 'react'
-import { View } from 'tamagui'
+import { Card, Text, View, XStack } from 'tamagui'
 
 import Layout from 'src/components/layout'
 import EntryDetailsCard from 'src/components/molecules/entry-details-card'
 import useEntryStore from 'src/stores/use-entry'
 import { IEntry } from 'src/types/stores'
+import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 
 const EntryPage = () => {
   const { entries } = useEntryStore()
@@ -22,8 +23,23 @@ const EntryPage = () => {
     <Layout>
       <Stack.Screen options={{ headerTitle: 'Entry Details' }} />
       {_entry && (
-        <View margin="$3">
-          <EntryDetailsCard entry={_entry} />
+        <View>
+          <View margin="$3">
+            <EntryDetailsCard entry={_entry} />
+          </View>
+          <Card>
+            <Card.Header>
+              <XStack justifyContent="space-between" alignItems="center">
+                <Text theme="alt1">Created By</Text>
+                <Text fontWeight="800"> You</Text>
+              </XStack>
+              <XStack justifyContent="flex-end">
+                <Text theme="alt2">
+                  On {getFormattedDate(_entry.enteredOn)}, {getFormattedTime(_entry.enteredOn)}
+                </Text>
+              </XStack>
+            </Card.Header>
+          </Card>
         </View>
       )}
     </Layout>

@@ -1,3 +1,5 @@
+import { AnimatableNumericValue } from 'react-native'
+
 import { IEntry } from 'src/types/stores'
 
 export interface IEntryCardProps {
@@ -15,4 +17,5 @@ export interface IEntryDetailsCardProps {
 
 export interface IPaymentModeBadgeProps {
   entry: IEntry
+  borderRadius?: AnimatableNumericValue
 }
