@@ -7,34 +7,31 @@ import InputField from 'src/components/atoms/input'
 import PressableText from 'src/components/atoms/pressable-text'
 import Layout from 'src/components/layout'
 import SaveEntryMenu from 'src/components/molecules/save-entry-menu'
-import { EntryTypes } from 'src/constants/entry-types'
+import { EntryTypes, PaymentModes } from 'src/constants/entry'
 import { Routes } from 'src/constants/routes'
 import useDatePicker from 'src/hooks/use-date-picker'
 import useEntryStore from 'src/stores/use-entry'
-import { AddEntryTypes } from 'src/types/components/molecules'
 import { IEntry } from 'src/types/stores'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 import { generateRandomId } from 'src/utils/general'
 
 const AddEntryPage = () => {
-  const params = useLocalSearchParams()
+  const { entryType } = useLocalSearchParams() as any
   const { date, showDatepicker } = useDatePicker()
 
   const [_title, setTitle] = useState({ title: '', color: '' })
-  const [_entry, setEntry] = useState<IEntry>({ paymentMode: 'online' } as IEntry)
+  const [_entry, setEntry] = useState<IEntry>({ paymentMode: PaymentModes.ONLINE } as IEntry)
   const [_entryValidation, setEntryValidation] = useState({ amount: true })
 
   const { addEntry, netWorth } = useEntryStore()
 
   useEffect(() => {
-    const { entryType } = params
-
-    switch (entryType) {
-      case EntryTypes.cashIn:
+    switch (+entryType) {
+      case EntryTypes.CASH_IN:
         setTitle({ title: 'Add Cash In Entry', color: 'green' })
         break
 
-      case EntryTypes.cashOut:
+      case EntryTypes.CASH_OUT:
         setTitle({ title: 'Add Cash Out Entry', color: 'red' })
         break
 
@@ -56,20 +53,18 @@ const AddEntryPage = () => {
       enteredOn: new Date(date),
       paymentMode: _entry.paymentMode,
       balanceOnEntry: getBalanceOnEntry(),
-      type: params.entryType as AddEntryTypes
+      type: +entryType as EntryTypes
     }
 
     addEntry(entry)
   }
 
   const getBalanceOnEntry = () => {
-    const { entryType } = params
-
     if (!_entry?.amount) {
       return 0
     }
 
-    if (entryType === EntryTypes.cashOut) {
+    if (entryType === EntryTypes.CASH_OUT) {
       return netWorth.netBalance - +_entry.amount
     }
 
@@ -93,7 +88,7 @@ const AddEntryPage = () => {
     }
 
     _addEntry()
-    router.replace({ pathname: Routes.AddEntryPage.link, params })
+    router.replace({ pathname: Routes.AddEntryPage.link, params: { entryType } })
   }
 
   return (
@@ -159,10 +154,12 @@ const AddEntryPage = () => {
                   <View
                     onPress={() => {
                       setEntry((prev) => {
-                        return { ...prev, paymentMode: 'online' }
+                        return { ...prev, paymentMode: PaymentModes.ONLINE }
                       })
                     }}
-                    backgroundColor={_entry.paymentMode === 'online' ? '$green8' : '$gray6'}
+                    backgroundColor={
+                      _entry.paymentMode === PaymentModes.ONLINE ? '$green8' : '$gray6'
+                    }
                     paddingVertical="$1.5"
                     paddingHorizontal="$3"
                     borderRadius="$6"
@@ -172,10 +169,12 @@ const AddEntryPage = () => {
                   <View
                     onPress={() => {
                       setEntry((prev) => {
-                        return { ...prev, paymentMode: 'cash' }
+                        return { ...prev, paymentMode: PaymentModes.CASH }
                       })
                     }}
-                    backgroundColor={_entry.paymentMode === 'cash' ? '$green8' : '$gray6'}
+                    backgroundColor={
+                      _entry.paymentMode === PaymentModes.CASH ? '$green8' : '$gray6'
+                    }
                     paddingVertical="$1.5"
                     paddingHorizontal="$3"
                     borderRadius="$6"

@@ -1,7 +1,5 @@
 import { IEntry } from 'src/types/stores'
 
-export type AddEntryTypes = 'CASH_IN' | 'CASH_OUT'
-
 export interface IEntryCardProps {
   entry: IEntry
 }
@@ -9,4 +7,12 @@ export interface IEntryCardProps {
 export interface ISaveEntryMenuProps {
   onSave?: () => void
   onSaveAndNew?: () => void
+}
+
+export interface IEntryDetailsCardProps {
+  entry: IEntry
+}
+
+export interface IPaymentModeBadgeProps {
+  entry: IEntry
 }

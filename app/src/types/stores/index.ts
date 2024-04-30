@@ -1,6 +1,4 @@
-import { AddEntryTypes } from 'src/types/components/molecules'
-
-export type PaymentModes = 'cash' | 'online'
+import { EntryTypes, PaymentModes } from 'src/constants/entry'
 
 export interface IEntry {
   id: string
@@ -9,7 +7,7 @@ export interface IEntry {
   enteredOn: Date
   paymentMode: PaymentModes
   balanceOnEntry: number
-  type: AddEntryTypes
+  type: EntryTypes
 }
 
 export interface INetWorth {

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { EntryTypes } from 'src/constants/entry-types'
+import { EntryTypes } from 'src/constants/entry'
 import { IEntryActions, IEntryState } from 'src/types/stores'
 
 const useEntryStore = create<IEntryState & IEntryActions>((set) => ({
@@ -22,9 +22,9 @@ const useEntryStore = create<IEntryState & IEntryActions>((set) => ({
         const amount = parseFloat(entry.amount)
 
         if (!isNaN(amount)) {
-          if (entry.type === EntryTypes.cashIn) {
+          if (entry.type === EntryTypes.CASH_IN) {
             totalIn += amount
-          } else if (entry.type === EntryTypes.cashOut) {
+          } else if (entry.type === EntryTypes.CASH_OUT) {
             totalOut += amount
           }
         }

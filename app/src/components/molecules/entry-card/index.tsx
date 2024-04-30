@@ -1,5 +1,6 @@
 import { Card, Separator, Text, View, XStack, YStack } from 'tamagui'
 
+import { EntryTypes, PaymentModes } from 'src/constants/entry'
 import { IEntryCardProps } from 'src/types/components/molecules'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 
@@ -18,10 +19,14 @@ const EntryCard = ({ entry }: IEntryCardProps) => {
               paddingHorizontal="$2"
               borderRadius="$2"
             >
-              <Text theme="alt1">{entry.paymentMode === 'online' ? 'Online' : 'Cash'}</Text>
+              <Text theme="alt1">
+                {entry.paymentMode === PaymentModes.ONLINE ? 'Online' : 'Cash'}
+              </Text>
             </View>
             <YStack alignItems="flex-end">
-              <Text color={entry.type === 'CASH_IN' ? 'green' : 'red'}>{entry.amount}</Text>
+              <Text color={entry.type === EntryTypes.CASH_IN ? 'green' : 'red'}>
+                {entry.amount}
+              </Text>
               <Text>Balance: {entry.balanceOnEntry}</Text>
             </YStack>
           </XStack>
