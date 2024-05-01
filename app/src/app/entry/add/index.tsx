@@ -1,12 +1,12 @@
 import { CalendarDays, ChevronDown, Clock4 } from '@tamagui/lucide-icons'
 import { router, Stack, useLocalSearchParams } from 'expo-router'
-import { Fragment, useEffect, useState } from 'react'
-import { Text, View, XStack } from 'tamagui'
+import { useEffect, useState } from 'react'
+import { View } from 'tamagui'
 
-import InputField from 'src/components/atoms/input'
 import PressableText from 'src/components/atoms/pressable-text'
 import Layout from 'src/components/layout'
 import SaveEntryMenu from 'src/components/molecules/save-entry-menu'
+import EntryForm from 'src/components/organisms/entry-form'
 import { EntryTypes, PaymentModes } from 'src/constants/entry'
 import { Routes } from 'src/constants/routes'
 import useDatePicker from 'src/hooks/use-date-picker'
@@ -20,8 +20,8 @@ const AddEntryPage = () => {
   const { date, showDatepicker } = useDatePicker()
 
   const [_title, setTitle] = useState({ title: '', color: '' })
-  const [_entry, setEntry] = useState<IEntry>({ paymentMode: PaymentModes.ONLINE } as IEntry)
   const [_entryValidation, setEntryValidation] = useState({ amount: true })
+  const [_entry, setEntry] = useState<IEntry>({ paymentMode: PaymentModes.ONLINE } as IEntry)
 
   const { addEntry, netWorth } = useEntryStore()
 
@@ -50,7 +50,7 @@ const AddEntryPage = () => {
       id: generateRandomId(),
       amount: _entry.amount,
       remark: _entry.remark,
-      enteredOn: new Date(date),
+      enteredOn: date,
       paymentMode: _entry.paymentMode,
       balanceOnEntry: getBalanceOnEntry(),
       type: +entryType as EntryTypes
@@ -116,76 +116,12 @@ const AddEntryPage = () => {
             {getFormattedTime(date)}
           </PressableText>
         </View>
-        <View paddingVertical="$3">
-          <InputField
-            onChange={(e) => {
-              const value = e.nativeEvent.text?.replace(/[^0-9]/g, '')
-              setEntry((prev) => {
-                return { ...prev, amount: value }
-              })
-            }}
-            autoFocus
-            error={!_entryValidation.amount}
-            errorMessage="Please enter a valid amount, eg 132"
-            autoComplete="off"
-            value={_entry?.amount}
-            keyboardType="numeric"
-            placeholder="Amount"
-            size="$5"
-          />
-          {!!_entry && !!_entry.amount && (
-            <Fragment>
-              <InputField
-                onChange={(e) => {
-                  const value = e.nativeEvent.text
-                  setEntry((prev) => {
-                    return { ...prev, remark: value }
-                  })
-                }}
-                autoComplete="off"
-                value={_entry?.remark}
-                placeholder="Remark"
-                size="$5"
-                marginVertical="$5"
-              />
-              <View>
-                <Text>Payment Mode</Text>
-                <XStack gap="$3" marginVertical="$3">
-                  <View
-                    onPress={() => {
-                      setEntry((prev) => {
-                        return { ...prev, paymentMode: PaymentModes.ONLINE }
-                      })
-                    }}
-                    backgroundColor={
-                      _entry.paymentMode === PaymentModes.ONLINE ? '$green8' : '$gray6'
-                    }
-                    paddingVertical="$1.5"
-                    paddingHorizontal="$3"
-                    borderRadius="$6"
-                  >
-                    <Text>Online</Text>
-                  </View>
-                  <View
-                    onPress={() => {
-                      setEntry((prev) => {
-                        return { ...prev, paymentMode: PaymentModes.CASH }
-                      })
-                    }}
-                    backgroundColor={
-                      _entry.paymentMode === PaymentModes.CASH ? '$green8' : '$gray6'
-                    }
-                    paddingVertical="$1.5"
-                    paddingHorizontal="$3"
-                    borderRadius="$6"
-                  >
-                    <Text>Cash</Text>
-                  </View>
-                </XStack>
-              </View>
-            </Fragment>
-          )}
-        </View>
+        <EntryForm
+          entry={_entry}
+          setEntry={setEntry}
+          validation={_entryValidation}
+          showDatepicker={showDatepicker}
+        />
       </View>
     </Layout>
   )

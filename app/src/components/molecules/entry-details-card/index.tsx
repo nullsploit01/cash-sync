@@ -1,14 +1,20 @@
 import { Pencil } from '@tamagui/lucide-icons'
+import { router } from 'expo-router'
 import React from 'react'
 import { Card, Separator, Text, View, XStack } from 'tamagui'
 
 import PressableText from 'src/components/atoms/pressable-text'
 import PaymentModeBadge from 'src/components/molecules/payment-mode-badge'
 import { EntryTypes } from 'src/constants/entry'
+import { Routes } from 'src/constants/routes'
 import { IEntryDetailsCardProps } from 'src/types/components/molecules'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 
 const EntryDetailsCard = ({ entry }: IEntryDetailsCardProps) => {
+  const onEditPress = () => {
+    router.navigate({ pathname: Routes.EditEntryPage.link, params: { id: entry.id } })
+  }
+
   return (
     <Card elevate shadowColor="$accentColor" borderTopColor="$gray10Dark" borderTopWidth="$1.5">
       <View margin="$3">
@@ -32,7 +38,9 @@ const EntryDetailsCard = ({ entry }: IEntryDetailsCardProps) => {
       </View>
       <Separator marginVertical="$3" borderWidth="$0.25" borderColor="$gray9" />
       <View justifyContent="center" alignItems="center" marginTop="$1" marginBottom="$3">
-        <PressableText startIcon={<Pencil />}>Edit Entry</PressableText>
+        <PressableText onPress={onEditPress} startIcon={<Pencil />}>
+          Edit Entry
+        </PressableText>
       </View>
     </Card>
   )

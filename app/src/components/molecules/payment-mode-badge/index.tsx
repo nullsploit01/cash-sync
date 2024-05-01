@@ -11,7 +11,7 @@ const PaymentModeBadge = ({ entry, borderRadius = 2 }: IPaymentModeBadgeProps) =
       paddingHorizontal="$2"
       borderRadius={borderRadius}
     >
-      <Text theme="alt1">{entry.paymentMode === PaymentModes.CASH ? 'Online' : 'Cash'}</Text>
+      <Text theme="alt1">{entry.paymentMode === PaymentModes.ONLINE ? 'Online' : 'Cash'}</Text>
     </View>
   )
 }
