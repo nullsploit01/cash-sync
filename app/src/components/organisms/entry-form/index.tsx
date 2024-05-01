@@ -1,14 +1,71 @@
-import { Fragment } from 'react'
+import { CalendarDays, ChevronDown, Clock4 } from '@tamagui/lucide-icons'
+import { Fragment, useMemo } from 'react'
 import { Text, View, XStack } from 'tamagui'
 
+import Badge from 'src/components/atoms/badge'
 import InputField from 'src/components/atoms/input'
-import { PaymentModes } from 'src/constants/entry'
+import PressableText from 'src/components/atoms/pressable-text'
+import { EntryTypes, PaymentModes } from 'src/constants/entry'
+import useDatePicker from 'src/hooks/use-date-picker'
 import { IEntryFormProps } from 'src/types/components/organisms'
+import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 
 const EntryForm = ({ entry, setEntry, validation }: IEntryFormProps) => {
+  const { date, showDatepicker } = useDatePicker()
+
+  useMemo(() => {
+    setEntry((prev) => {
+      return { ...prev, enteredOn: date }
+    })
+  }, [date])
+
   return (
     <View>
       <View paddingVertical="$3">
+        {entry.type !== undefined && (
+          <XStack marginTop="$3" gap="$2" alignItems="center">
+            <Badge
+              borderRadius="$8"
+              paddingHorizontal="$3"
+              onPress={() => {
+                setEntry((prev) => {
+                  return { ...prev, type: EntryTypes.CASH_IN }
+                })
+              }}
+              backgroundColor={entry.type === EntryTypes.CASH_IN ? '$green8' : '$gray6'}
+            >
+              <Text fontSize="$5">Cash In</Text>
+            </Badge>
+            <Badge
+              borderRadius="$8"
+              paddingHorizontal="$3"
+              onPress={() => {
+                setEntry((prev) => {
+                  return { ...prev, type: EntryTypes.CASH_OUT }
+                })
+              }}
+              backgroundColor={entry.type === EntryTypes.CASH_OUT ? '$red10' : '$gray6'}
+            >
+              <Text fontSize="$5">Cash Out</Text>
+            </Badge>
+          </XStack>
+        )}
+        <View display="flex" flexDirection="row" justifyContent="space-between" marginVertical="$3">
+          <PressableText
+            onPress={() => showDatepicker()}
+            startIcon={<CalendarDays size={16} strokeWidth="$0.25" />}
+            endIcon={<ChevronDown size={16} strokeWidth="$0.5" />}
+          >
+            {getFormattedDate(entry.enteredOn)}
+          </PressableText>
+          <PressableText
+            onPress={() => showDatepicker('time')}
+            startIcon={<Clock4 size={16} strokeWidth="$0.25" />}
+            endIcon={<ChevronDown size={16} strokeWidth="$0.5" />}
+          >
+            {getFormattedTime(entry.enteredOn)}
+          </PressableText>
+        </View>
         <InputField
           onChange={(e) => {
             const value = e.nativeEvent.text?.replace(/[^0-9]/g, '')

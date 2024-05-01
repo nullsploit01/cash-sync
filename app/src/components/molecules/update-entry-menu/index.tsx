@@ -2,8 +2,9 @@ import React from 'react'
 import { Button, View } from 'tamagui'
 
 const UpdateEntryMenu = () => {
+  const onUpdate = () => {}
   return (
-    <View padding="$3">
+    <View onPress={onUpdate} padding="$3">
       <Button backgroundColor="$gray8">UPDATE</Button>
     </View>
   )
