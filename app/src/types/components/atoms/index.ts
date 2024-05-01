@@ -14,5 +14,5 @@ export interface IPressableTextProps extends ViewProps {
 }
 
 export interface IBadgeProps extends ViewProps {
-  children: ReactNode
+  children?: ReactNode
 }

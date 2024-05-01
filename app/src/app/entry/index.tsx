@@ -1,5 +1,5 @@
-import { Stack, useLocalSearchParams } from 'expo-router'
-import React, { useEffect, useState } from 'react'
+import { Stack, useFocusEffect, useLocalSearchParams } from 'expo-router'
+import React, { useState } from 'react'
 import { Card, Text, View, XStack } from 'tamagui'
 
 import Layout from 'src/components/layout'
@@ -14,10 +14,10 @@ const EntryPage = () => {
 
   const [_entry, setEntry] = useState<IEntry>()
 
-  useEffect(() => {
+  useFocusEffect(() => {
     const entry = entries.find((e) => e.id === id)
     setEntry(entry)
-  }, [])
+  })
 
   return (
     <Layout>
