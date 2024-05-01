@@ -23,4 +23,5 @@ export interface IEntryState {
 
 export interface IEntryActions {
   addEntry: (entry: IEntry) => void
+  updateEntry: (entry: IEntry) => void
 }

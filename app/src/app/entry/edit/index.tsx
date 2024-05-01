@@ -1,5 +1,5 @@
 import { Stack, useLocalSearchParams } from 'expo-router'
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { View } from 'tamagui'
 
 import Layout from 'src/components/layout'
@@ -21,14 +21,24 @@ const EditEntryPage = () => {
   }, [])
 
   return (
-    <Layout footer={<UpdateEntryMenu />}>
-      <Stack.Screen options={{ title: 'Edit Entry' }} />
+    <Fragment>
       {_entry && (
-        <View paddingHorizontal="$3">
-          <EntryForm entry={_entry} setEntry={setEntry} validation={_entryValidation} />
-        </View>
+        <Layout
+          footer={
+            <UpdateEntryMenu
+              entry={_entry}
+              entryType={_entry?.type}
+              setEntryValidation={setEntryValidation}
+            />
+          }
+        >
+          <Stack.Screen options={{ title: 'Edit Entry' }} />
+          <View paddingHorizontal="$3">
+            <EntryForm entry={_entry} setEntry={setEntry} validation={_entryValidation} />
+          </View>
+        </Layout>
       )}
-    </Layout>
+    </Fragment>
   )
 }
 

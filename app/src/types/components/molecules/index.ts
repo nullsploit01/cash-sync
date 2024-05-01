@@ -9,12 +9,12 @@ export interface IEntryCardProps {
 }
 
 export interface ISaveEntryMenuProps {
-  onSave?: () => void
-  onSaveAndNew?: () => void
   entry: IEntry
   entryType: EntryTypes
   setEntryValidation: Dispatch<SetStateAction<{ amount: boolean }>>
 }
+
+export interface IUpdateEntryMenuProps extends ISaveEntryMenuProps {}
 
 export interface IEntryDetailsCardProps {
   entry: IEntry

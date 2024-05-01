@@ -41,6 +41,42 @@ const useEntryStore = create<IEntryState & IEntryActions>((set) => ({
         }
       }
     })
+  },
+  updateEntry: (entry) => {
+    set((state) => {
+      const updatedEntries = state.entries.map((e) => (e.id === entry.id ? entry : e))
+
+      let netBalance = 0
+      let totalIn = 0
+      let totalOut = 0
+
+      updatedEntries.forEach((entry) => {
+        const amount = parseFloat(entry.amount)
+
+        if (!isNaN(amount)) {
+          if (entry.type === EntryTypes.CASH_IN) {
+            totalIn += amount
+          } else if (entry.type === EntryTypes.CASH_OUT) {
+            totalOut += amount
+          }
+        }
+      })
+
+      netBalance = totalIn - totalOut
+
+      const sortedEntries = updatedEntries.sort(
+        (a, b) => b.enteredOn.getTime() - a.enteredOn.getTime()
+      )
+
+      return {
+        entries: sortedEntries,
+        netWorth: {
+          netBalance,
+          totalIn,
+          totalOut
+        }
+      }
+    })
   }
 }))
 
