@@ -12,3 +12,7 @@ export interface IPressableTextProps extends ViewProps {
   startIcon?: ReactNode
   size?: number
 }
+
+export interface IBadgeProps extends ViewProps {
+  children: ReactNode
+}

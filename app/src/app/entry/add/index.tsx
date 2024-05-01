@@ -116,12 +116,7 @@ const AddEntryPage = () => {
             {getFormattedTime(date)}
           </PressableText>
         </View>
-        <EntryForm
-          entry={_entry}
-          setEntry={setEntry}
-          validation={_entryValidation}
-          showDatepicker={showDatepicker}
-        />
+        <EntryForm entry={_entry} setEntry={setEntry} validation={_entryValidation} />
       </View>
     </Layout>
   )

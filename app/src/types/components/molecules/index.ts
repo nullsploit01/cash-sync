@@ -1,5 +1,4 @@
-import { AnimatableNumericValue } from 'react-native'
-
+import { IBadgeProps } from 'src/types/components/atoms'
 import { IEntry } from 'src/types/stores'
 
 export interface IEntryCardProps {
@@ -15,7 +14,6 @@ export interface IEntryDetailsCardProps {
   entry: IEntry
 }
 
-export interface IPaymentModeBadgeProps {
+export interface IPaymentModeBadgeProps extends IBadgeProps {
   entry: IEntry
-  borderRadius?: AnimatableNumericValue
 }
