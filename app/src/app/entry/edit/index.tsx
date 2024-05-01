@@ -6,6 +6,7 @@ import { Text, View, XStack } from 'tamagui'
 import Badge from 'src/components/atoms/badge'
 import PressableText from 'src/components/atoms/pressable-text'
 import Layout from 'src/components/layout'
+import UpdateEntryMenu from 'src/components/molecules/update-entry-menu'
 import EntryForm from 'src/components/organisms/entry-form'
 import { EntryTypes } from 'src/constants/entry'
 import useDatePicker from 'src/hooks/use-date-picker'
@@ -33,7 +34,7 @@ const EditEntryPage = () => {
   }, [date])
 
   return (
-    <Layout>
+    <Layout footer={<UpdateEntryMenu />}>
       <Stack.Screen options={{ title: 'Edit Entry' }} />
       {_entry && (
         <View paddingHorizontal="$3">
