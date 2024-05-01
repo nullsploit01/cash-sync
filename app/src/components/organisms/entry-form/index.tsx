@@ -1,5 +1,5 @@
 import { CalendarDays, ChevronDown, Clock4 } from '@tamagui/lucide-icons'
-import { Fragment, useMemo } from 'react'
+import { Fragment, useEffect, useRef } from 'react'
 import { Text, View, XStack } from 'tamagui'
 
 import Badge from 'src/components/atoms/badge'
@@ -13,10 +13,17 @@ import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 const EntryForm = ({ entry, setEntry, validation }: IEntryFormProps) => {
   const { date, showDatepicker } = useDatePicker()
 
-  useMemo(() => {
-    setEntry((prev) => {
-      return { ...prev, enteredOn: date }
-    })
+  const prevDateRef = useRef(date)
+
+  useEffect(() => {
+    if (prevDateRef.current !== date || !entry.enteredOn) {
+      setEntry((prevEntry) => ({
+        ...prevEntry,
+        enteredOn: date
+      }))
+    }
+
+    prevDateRef.current = date
   }, [date])
 
   return (
