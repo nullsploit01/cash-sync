@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/nullsploit01/cash-sync/cmd/router"
+	"github.com/nullsploit01/cash-sync/router"
 )
 
 func main() {
