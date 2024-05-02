@@ -13,7 +13,7 @@ var client *firestore.Client
 
 func Setup() {
 	ctx := context.Background()
-	conf := &firebase.Config{ProjectID: settings.ProjectSettings.App.ProjectId}
+	conf := &firebase.Config{ProjectID: settings.ProjectSettings.App.RunMode}
 	app, err := firebase.NewApp(ctx, conf)
 	if err != nil {
 		log.Fatalln(err)

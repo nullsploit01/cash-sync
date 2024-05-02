@@ -8,8 +8,8 @@ import (
 )
 
 func init() {
-	models.Setup()
 	settings.Setup()
+	models.Setup()
 }
 
 func main() {

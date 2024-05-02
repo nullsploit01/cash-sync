@@ -4,10 +4,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/nullsploit01/cash-sync/pkg/settings"
 )
 
 func pong(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, gin.H{"message": "pong"})
+	c.IndentedJSON(http.StatusOK, gin.H{"message": "pong", "mode": settings.ProjectSettings.App.RunMode})
 }
 
 func InitRouter() *gin.Engine {
