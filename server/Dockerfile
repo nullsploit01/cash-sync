@@ -4,6 +4,6 @@ WORKDIR /go/src/app
 
 COPY . .
 
-RUN go build -o main cmd/cashsync/main.go
+RUN go build -o main .
 
 CMD ["./main"]
