@@ -12,6 +12,7 @@ func pong(c *gin.Context) {
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
+	router.Use(gin.Recovery())
 	router.GET("/ping", pong)
 
 	return router

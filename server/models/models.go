@@ -6,13 +6,14 @@ import (
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
+	"github.com/nullsploit01/cash-sync/pkg/settings"
 )
 
 var client *firestore.Client
 
 func Setup() {
 	ctx := context.Background()
-	conf := &firebase.Config{ProjectID: "cashsync-4ac59"}
+	conf := &firebase.Config{ProjectID: settings.ProjectSettings.App.ProjectId}
 	app, err := firebase.NewApp(ctx, conf)
 	if err != nil {
 		log.Fatalln(err)
