@@ -1,8 +1,11 @@
+import { ClerkProvider } from '@clerk/clerk-expo'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import { useEffect } from 'react'
 import { TamaguiProvider } from 'tamagui'
 import tamaguiConfig from 'tamagui.config'
+
+import { Environment } from 'src/config/environment'
 
 const Root = () => {
   const [loaded] = useFonts({
@@ -21,9 +24,11 @@ const Root = () => {
   }
 
   return (
-    <TamaguiProvider config={tamaguiConfig}>
-      <Stack screenOptions={{ headerTitleStyle: { fontWeight: '500' } }} />
-    </TamaguiProvider>
+    <ClerkProvider publishableKey={Environment.CLERK_PUBLISHABLE_KEY}>
+      <TamaguiProvider config={tamaguiConfig}>
+        <Stack screenOptions={{ headerTitleStyle: { fontWeight: '500' } }} />
+      </TamaguiProvider>
+    </ClerkProvider>
   )
 }
 
