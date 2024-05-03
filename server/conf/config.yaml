@@ -1,3 +1,5 @@
 app:
   runMode: 'debug'
   projectId: 'cashsync-4ac59'
+  databaseId: 'cashsync-store'
+  firestoreServiceAccountKeysLocation: 'private/firestore-keys.json'

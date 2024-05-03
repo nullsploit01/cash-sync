@@ -16,6 +16,5 @@ func main() {
 	gin.SetMode(settings.ProjectSettings.App.RunMode)
 
 	r := router.InitRouter()
-	models.TestConn()
 	r.Run()
 }

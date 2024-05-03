@@ -12,36 +12,22 @@ import (
 var client *firestore.Client
 
 func Setup() {
-	ctx := context.Background()
 	var err error
-	if settings.ProjectSettings.App.RunMode == "debug" {
-		sa := option.WithCredentialsFile("private/firestore-keys.json")
-		client, err = firestore.NewClientWithDatabase(ctx, settings.ProjectSettings.App.ProjectId, "cashsync-store", sa)
-	} else {
-		client, err = firestore.NewClientWithDatabase(ctx, settings.ProjectSettings.App.ProjectId, "cashsync-store")
-	}
+	ctx := context.Background()
 
-	if err != nil {
-		log.Fatalln(err)
-	}
+	client, err = firestore.NewClientWithDatabase(ctx, settings.ProjectSettings.App.ProjectId, settings.ProjectSettings.App.DatabaseId, GetServiceAccount())
 
 	if err != nil {
 		log.Fatalln(err)
 	}
 }
 
-func TestConn() {
-	ctx := context.Background()
-
-	_, _, err := client.Collection("users").Add(ctx, map[string]interface{}{
-		"first": "Ada",
-		"last":  "Lovelace",
-		"born":  1815,
-	})
-	if err != nil {
-		log.Fatalf("Failed adding alovelace: %v", err)
+func GetServiceAccount() option.ClientOption {
+	if settings.ProjectSettings.App.RunMode != "debug" {
+		return nil
 	}
 
+	return option.WithCredentialsFile(settings.ProjectSettings.App.FirestoreServiceAccountKeysLocation)
 }
 
 func Close() {

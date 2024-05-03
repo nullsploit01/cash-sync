@@ -8,8 +8,10 @@ import (
 
 type Settings struct {
 	App struct {
-		RunMode   string `yaml:"runMode" env:"RUN_MODE"`
-		ProjectId string `yaml:"projectId" env:"PROJECT_ID"`
+		RunMode                             string `yaml:"runMode" env:"RUN_MODE"`
+		ProjectId                           string `yaml:"projectId" env:"PROJECT_ID"`
+		DatabaseId                          string `yaml:"databaseId" env:"DATABASE_ID"`
+		FirestoreServiceAccountKeysLocation string `yaml:"firestoreServiceAccountKeysLocation"`
 	} `yaml:"app"`
 }
 
