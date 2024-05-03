@@ -5,11 +5,13 @@ import (
 	"github.com/nullsploit01/cash-sync/models"
 	"github.com/nullsploit01/cash-sync/pkg/settings"
 	"github.com/nullsploit01/cash-sync/router"
+	"github.com/nullsploit01/cash-sync/service/auth"
 )
 
 func init() {
 	settings.Setup()
 	models.Setup()
+	auth.Setup()
 }
 
 func main() {

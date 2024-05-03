@@ -3,3 +3,4 @@ app:
   projectId: 'cashsync-4ac59'
   databaseId: 'cashsync-store'
   firestoreServiceAccountKeysLocation: 'private/firestore-keys.json'
+  clerkApiKey: 'sk_test_jYEcS4y77dBap6pJwugcwnfJmHipXFI3yO7o5Iuq1g'
