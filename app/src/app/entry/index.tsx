@@ -20,7 +20,7 @@ const EntryPage = () => {
   })
 
   return (
-    <Layout>
+    <Layout protectedRoute>
       <Stack.Screen options={{ headerTitle: 'Entry Details' }} />
       {_entry && (
         <View>

@@ -6,6 +6,7 @@ import { TamaguiProvider } from 'tamagui'
 import tamaguiConfig from 'tamagui.config'
 
 import { Environment } from 'src/config/environment'
+import { tokenService } from 'src/services/token'
 
 const Root = () => {
   const [loaded] = useFonts({
@@ -24,9 +25,14 @@ const Root = () => {
   }
 
   return (
-    <ClerkProvider publishableKey={Environment.CLERK_PUBLISHABLE_KEY}>
+    <ClerkProvider publishableKey={Environment.CLERK_PUBLISHABLE_KEY} tokenCache={tokenService}>
       <TamaguiProvider config={tamaguiConfig}>
+        {/* <ClerkLoading>
+          <Text>aaa</Text>
+        </ClerkLoading>
+        <ClerkLoaded> */}
         <Stack screenOptions={{ headerTitleStyle: { fontWeight: '500' } }} />
+        {/* </ClerkLoaded> */}
       </TamaguiProvider>
     </ClerkProvider>
   )
