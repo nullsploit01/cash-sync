@@ -1,9 +1,15 @@
-import { Redirect } from 'expo-router'
+import { Redirect, Stack } from 'expo-router'
+import { View } from 'tamagui'
 
 import { Routes } from 'src/constants/routes'
 
 const OauthCallback = () => {
-  return <Redirect href={Routes.HomePage.link} />
+  return (
+    <View>
+      <Stack.Screen options={{ headerTitle: 'Redirecting..' }} />
+      <Redirect href={Routes.HomePage.link} />
+    </View>
+  )
 }
 
 export default OauthCallback
