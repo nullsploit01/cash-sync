@@ -8,7 +8,7 @@ import Entries from 'src/components/organisms/entries'
 
 const HomePage = () => {
   return (
-    <Layout footer={<AddEntryMenu />}>
+    <Layout footer={<AddEntryMenu />} protectedRoute>
       <Stack.Screen options={{ title: 'Your Expenses' }} />
       <XStack paddingHorizontal="$3" marginVertical="$3" alignSelf="center" width="100%">
         <BalanceCard />
