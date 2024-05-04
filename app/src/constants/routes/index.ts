@@ -14,5 +14,9 @@ export const Routes = {
   EditEntryPage: {
     name: 'Edit Entry Page',
     link: '/entry/edit'
+  },
+  SigninPage: {
+    name: 'Signin Page',
+    link: '/auth/signin'
   }
 }
