@@ -1,6 +1,7 @@
 import { ClerkLoaded, ClerkLoading, ClerkProvider } from '@clerk/clerk-expo'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
+import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react'
 import { TamaguiProvider } from 'tamagui'
 import tamaguiConfig from 'tamagui.config'
@@ -8,6 +9,8 @@ import tamaguiConfig from 'tamagui.config'
 import Loading from 'src/components/organisms/loading'
 import { Environment } from 'src/config/environment'
 import { tokenService } from 'src/services/token'
+
+SplashScreen.preventAutoHideAsync()
 
 const Root = () => {
   const [loaded] = useFonts({
@@ -17,7 +20,7 @@ const Root = () => {
 
   useEffect(() => {
     if (loaded) {
-      // hide splash screen here
+      SplashScreen.hideAsync()
     }
   }, [loaded])
 
