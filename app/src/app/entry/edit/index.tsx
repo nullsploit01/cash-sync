@@ -24,6 +24,7 @@ const EditEntryPage = () => {
     <Fragment>
       {_entry && (
         <Layout
+          protectedRoute
           footer={
             <UpdateEntryMenu
               entry={_entry}

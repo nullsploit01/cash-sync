@@ -1,8 +1,8 @@
-import { ClerkProvider } from '@clerk/clerk-expo'
+import { ClerkLoaded, ClerkLoading, ClerkProvider } from '@clerk/clerk-expo'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import { useEffect } from 'react'
-import { TamaguiProvider } from 'tamagui'
+import { TamaguiProvider, Text } from 'tamagui'
 import tamaguiConfig from 'tamagui.config'
 
 import { Environment } from 'src/config/environment'
@@ -27,12 +27,12 @@ const Root = () => {
   return (
     <ClerkProvider publishableKey={Environment.CLERK_PUBLISHABLE_KEY} tokenCache={tokenService}>
       <TamaguiProvider config={tamaguiConfig}>
-        {/* <ClerkLoading>
-          <Text>aaa</Text>
+        <ClerkLoading>
+          <Text>Loading..</Text>
         </ClerkLoading>
-        <ClerkLoaded> */}
-        <Stack screenOptions={{ headerTitleStyle: { fontWeight: '500' } }} />
-        {/* </ClerkLoaded> */}
+        <ClerkLoaded>
+          <Stack screenOptions={{ headerTitleStyle: { fontWeight: '500' } }} />
+        </ClerkLoaded>
       </TamaguiProvider>
     </ClerkProvider>
   )

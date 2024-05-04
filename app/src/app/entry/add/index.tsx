@@ -44,6 +44,7 @@ const AddEntryPage = () => {
           entryType={+entryType}
         />
       }
+      protectedRoute
     >
       <Stack.Screen options={{ title: _title.title, headerTitleStyle: { color: _title.color } }} />
       <View paddingHorizontal="$3">
