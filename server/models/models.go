@@ -14,12 +14,18 @@ var client *firestore.Client
 func Setup() {
 	var err error
 	ctx := context.Background()
+	serviceAccount := GetServiceAccount()
 
-	client, err = firestore.NewClientWithDatabase(ctx, settings.ProjectSettings.App.ProjectId, settings.ProjectSettings.App.DatabaseId, GetServiceAccount())
+	if serviceAccount == nil {
+		client, err = firestore.NewClientWithDatabase(ctx, settings.ProjectSettings.App.ProjectId, settings.ProjectSettings.App.DatabaseId)
+	} else {
+		client, err = firestore.NewClientWithDatabase(ctx, settings.ProjectSettings.App.ProjectId, settings.ProjectSettings.App.DatabaseId, serviceAccount)
+	}
 
 	if err != nil {
 		log.Fatalln(err)
 	}
+
 }
 
 func GetServiceAccount() option.ClientOption {
