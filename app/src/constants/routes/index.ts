@@ -18,5 +18,9 @@ export const Routes = {
   SigninPage: {
     name: 'Signin Page',
     link: '/auth/signin'
+  },
+  MenuPage: {
+    name: 'Menu Page',
+    link: '/menu'
   }
 }

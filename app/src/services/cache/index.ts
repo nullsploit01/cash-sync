@@ -12,6 +12,16 @@ export const cacheService = {
   async setItem(key: string, value: unknown) {
     try {
       return SecureStore.setItemAsync(key, JSON.stringify(value))
-    } catch (err) {}
+    } catch (err) {
+      return null
+    }
+  },
+
+  async removeItem(key: string) {
+    try {
+      return SecureStore.deleteItemAsync(key)
+    } catch (err) {
+      return null
+    }
   }
 }

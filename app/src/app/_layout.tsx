@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { TamaguiProvider } from 'tamagui'
 import tamaguiConfig from 'tamagui.config'
 
+import AppMenu from 'src/components/molecules/app-menu'
 import Loading from 'src/components/organisms/loading'
 import { Environment } from 'src/config/environment'
 import { tokenService } from 'src/services/token'
@@ -35,7 +36,12 @@ const Root = () => {
           <Loading />
         </ClerkLoading>
         <ClerkLoaded>
-          <Stack screenOptions={{ headerTitleStyle: { fontWeight: '500' } }} />
+          <Stack
+            screenOptions={{
+              headerTitleStyle: { fontWeight: '500' },
+              headerRight: (p) => <AppMenu />
+            }}
+          />
         </ClerkLoaded>
       </TamaguiProvider>
     </ClerkProvider>
