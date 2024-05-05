@@ -1,9 +1,11 @@
 import { useAuth, useOAuth } from '@clerk/clerk-expo'
+import { LogIn } from '@tamagui/lucide-icons'
 import { router, Stack, useFocusEffect } from 'expo-router'
 import * as WebBrowser from 'expo-web-browser'
 import React from 'react'
-import { Button } from 'react-native'
+import { View } from 'tamagui'
 
+import PressableText from 'src/components/atoms/pressable-text'
 import Layout from 'src/components/layout'
 import { Routes } from 'src/constants/routes'
 import useWarmUpBrowser from 'src/hooks/use-warmup-browser'
@@ -22,7 +24,7 @@ const SignInWithOAuth = () => {
 
   const { startOAuthFlow } = useOAuth({ strategy: 'oauth_google' })
 
-  const onPress = React.useCallback(async () => {
+  const onSigninPress = React.useCallback(async () => {
     try {
       const { createdSessionId, setActive } = await startOAuthFlow()
 
@@ -35,7 +37,19 @@ const SignInWithOAuth = () => {
   return (
     <Layout>
       <Stack.Screen options={{ headerTitle: 'Sign In', headerRight: null }} />
-      <Button title="Sign in with Google" onPress={onPress} />
+      <View height={500} justifyContent="center" alignItems="center">
+        <PressableText
+          borderColor="black"
+          borderWidth="$0.75"
+          paddingHorizontal="$2"
+          paddingVertical="$1.5"
+          borderRadius="$3"
+          startIcon={<LogIn />}
+          onPress={onSigninPress}
+        >
+          Signin
+        </PressableText>
+      </View>
     </Layout>
   )
 }
