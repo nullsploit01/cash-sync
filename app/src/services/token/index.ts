@@ -1,21 +1,15 @@
-import * as SecureStore from 'expo-secure-store'
-
 import { cacheService } from 'src/services/cache'
 
 export const tokenService = {
   async getToken(key: string) {
-    try {
-      return await SecureStore.getItemAsync(key)
-    } catch (err) {
-      return null
-    }
+    return await cacheService.getItem(key)
   },
+
   async saveToken(key: string, value: string) {
-    try {
-      return await SecureStore.setItemAsync(key, value)
-    } catch (err) {}
+    return await cacheService.setItem(key, value)
   },
-  async clearToken() {
-    return await cacheService.removeItem('__clerk_client_jwt')
+
+  async clearToken(key = '__clerk_client_jwt') {
+    return await cacheService.removeItem(key)
   }
 }
