@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/nullsploit01/cash-sync/pkg/settings"
+	"github.com/nullsploit01/cash-sync/router/api"
 )
 
 func pong(c *gin.Context) {
@@ -14,7 +15,10 @@ func pong(c *gin.Context) {
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(gin.Recovery())
+
 	router.GET("/ping", pong)
+
+	router.GET("/auth/users/:id", api.GetUser)
 
 	return router
 }
