@@ -10,11 +10,11 @@ import (
 )
 
 type User struct {
-	ID             string
-	FirstName      string
-	LastName       string
-	EmailAddresses []string
-	ImageURL       string
+	ID             string   `json:"id"`
+	FirstName      string   `json:"firstName"`
+	LastName       string   `json:"lastName"`
+	EmailAddresses []string `json:"emailAddresses"`
+	ImageURL       string   `json:"imageUrl"`
 }
 
 func Setup() {
