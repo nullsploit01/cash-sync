@@ -25,7 +25,12 @@ func Setup() {
 func GetUser(id string) (User, error) {
 	ctx := context.Background()
 
-	list, _ := user.List(ctx, &user.ListParams{})
+	list, err := user.List(ctx, &user.ListParams{})
+
+	if err != nil {
+		return User{}, errors.New(err.Error())
+	}
+
 	for _, resource := range list.Users {
 		if resource.ID == id {
 			return MapClerkUser(resource), nil
