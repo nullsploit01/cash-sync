@@ -6,6 +6,7 @@ import { Avatar, Button, Text, View, XStack, YStack } from 'tamagui'
 import InputField from 'src/components/atoms/input'
 import PressableText from 'src/components/atoms/pressable-text'
 import Layout from 'src/components/layout'
+import { authService } from 'src/services/api/auth'
 
 const Profile = () => {
   const { user } = useUser()
@@ -16,7 +17,31 @@ const Profile = () => {
   })
   const [_editMode, setEditMode] = useState({ name: false })
 
-  const onUpdate = () => {}
+  const onUpdate = async () => {
+    if (!_user.name?.trim()) {
+      return
+    }
+
+    const names = _user.name.split(' ')
+
+    let firstName: string
+    let lastName: string
+
+    if (names.length) {
+      firstName = names[0]
+
+      if (names.length > 1) {
+        lastName = names.slice(1).join(' ')
+      }
+    }
+
+    try {
+      await authService.updateUser(user.id, { first_name: firstName, last_name: lastName })
+    } catch (error) {
+    } finally {
+      setEditMode({ name: false })
+    }
+  }
 
   const UpdateButton = () => {
     return (
