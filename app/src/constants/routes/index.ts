@@ -22,5 +22,9 @@ export const Routes = {
   MenuPage: {
     name: 'Menu Page',
     link: '/menu'
+  },
+  ProfilePage: {
+    name: 'Profile Page',
+    link: '/menu/profile'
   }
 }
