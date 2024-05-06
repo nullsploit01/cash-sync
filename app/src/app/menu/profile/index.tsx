@@ -1,7 +1,7 @@
 import { useUser } from '@clerk/clerk-expo'
 import { Stack } from 'expo-router'
-import React, { useState } from 'react'
-import { Avatar, Text, XStack, YStack } from 'tamagui'
+import React, { Fragment, useState } from 'react'
+import { Avatar, Button, Text, View, XStack, YStack } from 'tamagui'
 
 import InputField from 'src/components/atoms/input'
 import PressableText from 'src/components/atoms/pressable-text'
@@ -16,8 +16,24 @@ const Profile = () => {
   })
   const [_editMode, setEditMode] = useState({ name: false })
 
+  const onUpdate = () => {}
+
+  const UpdateButton = () => {
+    return (
+      <Fragment>
+        {_editMode.name && (
+          <View padding="$3">
+            <Button onPress={onUpdate} backgroundColor="$gray8">
+              UPDATE
+            </Button>
+          </View>
+        )}
+      </Fragment>
+    )
+  }
+
   return (
-    <Layout protectedRoute>
+    <Layout protectedRoute footer={<UpdateButton />}>
       <Stack.Screen options={{ headerTitle: 'Profile', headerRight: null }} />
       <YStack padding="$3">
         <YStack alignItems="center" margin="$5">
