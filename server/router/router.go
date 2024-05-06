@@ -19,6 +19,7 @@ func InitRouter() *gin.Engine {
 	router.GET("/ping", pong)
 
 	router.GET("/auth/users/:id", api.GetUser)
+	router.PUT("/auth/users/:id", api.UpdateUser)
 
 	return router
 }
