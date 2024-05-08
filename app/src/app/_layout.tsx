@@ -9,6 +9,7 @@ import tamaguiConfig from 'tamagui.config'
 import AppMenu from 'src/components/molecules/app-menu'
 import Loading from 'src/components/organisms/loading'
 import { Environment } from 'src/config/environment'
+import { HttpInterceptor } from 'src/services/api'
 import { tokenService } from 'src/services/token'
 
 SplashScreen.preventAutoHideAsync()
@@ -31,19 +32,21 @@ const Root = () => {
 
   return (
     <ClerkProvider publishableKey={Environment.CLERK_PUBLISHABLE_KEY} tokenCache={tokenService}>
-      <TamaguiProvider config={tamaguiConfig}>
-        <ClerkLoading>
-          <Loading />
-        </ClerkLoading>
-        <ClerkLoaded>
-          <Stack
-            screenOptions={{
-              headerTitleStyle: { fontWeight: '500' },
-              headerRight: (p) => <AppMenu />
-            }}
-          />
-        </ClerkLoaded>
-      </TamaguiProvider>
+      <HttpInterceptor>
+        <TamaguiProvider config={tamaguiConfig}>
+          <ClerkLoading>
+            <Loading />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <Stack
+              screenOptions={{
+                headerTitleStyle: { fontWeight: '500' },
+                headerRight: (p) => <AppMenu />
+              }}
+            />
+          </ClerkLoaded>
+        </TamaguiProvider>
+      </HttpInterceptor>
     </ClerkProvider>
   )
 }
