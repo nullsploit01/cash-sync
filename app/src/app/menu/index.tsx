@@ -14,8 +14,8 @@ const MenuPage = () => {
   const { signOut } = useAuth()
 
   const onSignoutPress = async () => {
-    await tokenService.clearToken()
     await signOut()
+    await tokenService.clearToken()
 
     router.replace(Routes.SigninPage.link)
   }
