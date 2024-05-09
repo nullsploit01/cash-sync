@@ -9,24 +9,34 @@ export const httpClient = axios.create({
 })
 
 export const HttpInterceptor: FC<PropsWithChildren> = ({ children }) => {
-  const { session } = useSession()
-  const [_isMounted, setIsMounted] = useState(false)
+  const { session, isLoaded } = useSession()
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
     const requestInterceptor = async (request: InternalAxiosRequestConfig) => {
-      const token = await session.getToken()
+      if (isMounted) {
+        const token = await session.getToken()
 
-      if (token) {
-        request.headers.Authorization = `Bearer ${token}`
+        if (token) {
+          request.headers.Authorization = `Bearer ${token}`
+        }
       }
 
       return request
     }
 
-    setIsMounted(true)
     const interceptor = httpClient.interceptors.request.use(requestInterceptor)
-    return () => httpClient.interceptors.response.eject(interceptor)
-  }, [])
 
-  return _isMounted && children
+    setIsMounted(true)
+
+    return () => {
+      httpClient.interceptors.request.eject(interceptor)
+    }
+  }, [isMounted, session])
+
+  if (!isLoaded) {
+    return null
+  }
+
+  return isMounted ? children : null
 }

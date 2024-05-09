@@ -1,6 +1,7 @@
 export interface IUser {
   id: string
-  fullName: string
+  firstName: string
+  lastName: string
   emailAddresses: string[]
   imageUrl: string
 }
