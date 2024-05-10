@@ -11,10 +11,12 @@ const AppMenu = () => {
 
   return (
     <TouchableOpacity onPress={() => router.navigate({ pathname: Routes.MenuPage.link })}>
-      <Avatar circular size="$3">
-        <Avatar.Image src={user.imageUrl} />
-        <Avatar.Fallback backgroundColor="$gray10" />
-      </Avatar>
+      {!!user && !!user.imageUrl && (
+        <Avatar circular size="$3">
+          <Avatar.Image src={user.imageUrl} />
+          <Avatar.Fallback backgroundColor="$gray10" />
+        </Avatar>
+      )}
     </TouchableOpacity>
   )
 }
