@@ -16,7 +16,7 @@ func ErrorHandler() gin.HandlerFunc {
 			case errors.ErrorHttpResponse:
 				c.AbortWithStatusJSON(e.Code, e)
 			default:
-				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "Service Unavailable"})
+				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "Something went wrong, please try again later!", "code": http.StatusInternalServerError})
 			}
 		}
 	}

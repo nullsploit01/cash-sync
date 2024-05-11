@@ -26,9 +26,9 @@ func BadRequest(description string) ErrorHttpResponse {
 }
 
 func NotFound() ErrorHttpResponse {
-	return HttpError("Resource Not Found", http.StatusNotFound)
+	return HttpError("Resource Not Found, please check again", http.StatusNotFound)
 }
 
 func Unauthorized() ErrorHttpResponse {
-	return HttpError("Unauthorized", http.StatusUnauthorized)
+	return HttpError("Session Expired! Please login again", http.StatusUnauthorized)
 }

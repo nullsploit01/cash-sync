@@ -18,7 +18,9 @@ export const HttpInterceptor: FC<PropsWithChildren> = ({ children }) => {
   const [isMounted, setIsMounted] = useState(false)
 
   const getDescription = (data: any) => {
-    return typeof data?.error === 'string' ? data.error : 'Something went wrong! Please try again'
+    return typeof data?.message === 'string'
+      ? data.message
+      : 'Something went wrong! Please try again'
   }
 
   useEffect(() => {
