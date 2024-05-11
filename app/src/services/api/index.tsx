@@ -1,8 +1,10 @@
 import { useSession } from '@clerk/clerk-expo'
 import axios, { AxiosError, AxiosResponse, HttpStatusCode, InternalAxiosRequestConfig } from 'axios'
+import { router } from 'expo-router'
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 
 import { Environment } from 'src/config/environment'
+import { Routes } from 'src/constants/routes'
 import { useNotification } from 'src/hooks/use-notification'
 
 export const httpClient = axios.create({
@@ -37,7 +39,7 @@ export const HttpInterceptor: FC<PropsWithChildren> = ({ children }) => {
     }
 
     const errorInterceptor = (error: AxiosError) => {
-      switch (error.response?.status) {
+      switch (error.response.status) {
         case HttpStatusCode.BadRequest: {
           showNotification({
             title: 'Bad Request',
@@ -53,6 +55,17 @@ export const HttpInterceptor: FC<PropsWithChildren> = ({ children }) => {
             message: getDescription(error.response?.data),
             type: 'error'
           })
+          break
+        }
+
+        case HttpStatusCode.Unauthorized: {
+          showNotification({
+            title: 'Unauthorized',
+            message: getDescription(error.response?.data),
+            type: 'error'
+          })
+
+          router.replace({ pathname: Routes.SigninPage.link, params: { signOutSession: true } })
           break
         }
 
