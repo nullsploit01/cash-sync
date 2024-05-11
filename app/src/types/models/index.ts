@@ -5,3 +5,9 @@ export interface IUser {
   emailAddresses: string[]
   imageUrl: string
 }
+
+export interface INoitification {
+  title: string
+  message: string
+  type?: 'success' | 'error' | 'info'
+}
