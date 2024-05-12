@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"google.golang.org/api/iterator"
 )
 
 type Book struct {
@@ -29,4 +30,30 @@ func AddBook(name, userId string) error {
 	}
 
 	return nil
+}
+
+func GetBooks(userId string) ([]Book, error) {
+	var books []Book
+
+	iter := client.Collection("books").Where("UserId", "==", userId).Documents(ctx)
+	for {
+		doc, err := iter.Next()
+
+		if err == iterator.Done {
+			break
+		}
+
+		if err != nil {
+			return nil, fmt.Errorf("failed to iterate: %v", err)
+		}
+
+		var book Book
+		if err := doc.DataTo(&book); err != nil {
+			return nil, fmt.Errorf("failed to parse book data: %v", err)
+		}
+
+		books = append(books, book)
+	}
+
+	return books, nil
 }

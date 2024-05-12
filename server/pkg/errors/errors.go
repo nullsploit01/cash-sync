@@ -33,6 +33,6 @@ func Unauthorized() ErrorHttpResponse {
 	return HttpError("Session Expired! Please login again", http.StatusUnauthorized)
 }
 
-func UnknownException(message string) ErrorHttpResponse {
+func UnknownException() ErrorHttpResponse {
 	return HttpError("Something went wrong! Please login again", http.StatusInternalServerError)
 }

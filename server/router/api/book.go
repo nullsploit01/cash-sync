@@ -13,7 +13,30 @@ type AddBookRequest struct {
 }
 
 func GetBooks(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, gin.H{"message": "get books"})
+	user, exists := c.Get("user")
+
+	if !exists {
+		c.Error(errors.Unauthorized())
+		c.Abort()
+		return
+	}
+
+	userId, ok := user.(string)
+	if !ok {
+		c.Error(errors.BadRequest("Invalid User"))
+		c.Abort()
+		return
+	}
+
+	books, err := models.GetBooks(userId)
+
+	if err != nil {
+		c.Error(errors.UnknownException())
+		c.Abort()
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, books)
 }
 
 func AddBook(c *gin.Context) {
@@ -43,7 +66,7 @@ func AddBook(c *gin.Context) {
 
 	err = models.AddBook(requestBody.Name, userId)
 	if err != nil {
-		c.Error(errors.UnknownException("Failed to add book"))
+		c.Error(errors.UnknownException())
 		c.Abort()
 		return
 	}
