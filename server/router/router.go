@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/nullsploit01/cash-sync/middlewares"
+	"github.com/nullsploit01/cash-sync/pkg/errors"
 	"github.com/nullsploit01/cash-sync/pkg/settings"
 	"github.com/nullsploit01/cash-sync/router/api"
 )
@@ -27,6 +28,11 @@ func InitRouter() *gin.Engine {
 		authRouter.GET("/users/:id", api.GetUser)
 		authRouter.PUT("/users/:id", api.UpdateUser)
 	}
+
+	router.NoRoute(func(c *gin.Context) {
+		c.Error(errors.NotFound())
+		c.Abort()
+	})
 
 	return router
 }
