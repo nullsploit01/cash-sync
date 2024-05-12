@@ -13,7 +13,7 @@ func RequireAuth() gin.HandlerFunc {
 		sessionToken := strings.TrimPrefix(c.Request.Header.Get("Authorization"), "Bearer ")
 
 		// Verify the session
-		_, err := jwt.Verify(c.Request.Context(), &jwt.VerifyParams{
+		claim, err := jwt.Verify(c.Request.Context(), &jwt.VerifyParams{
 			Token: sessionToken,
 		})
 
@@ -23,6 +23,7 @@ func RequireAuth() gin.HandlerFunc {
 			return
 		}
 
+		c.Set("user", claim.Subject)
 		c.Next()
 	}
 }
