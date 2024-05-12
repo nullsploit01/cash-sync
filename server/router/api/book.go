@@ -48,6 +48,5 @@ func AddBook(c *gin.Context) {
 		return
 	}
 
-	// Return success response
 	c.IndentedJSON(http.StatusCreated, gin.H{"message": "Book added successfully"})
 }
