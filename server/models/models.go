@@ -10,10 +10,10 @@ import (
 )
 
 var client *firestore.Client
+var ctx = context.Background()
 
 func Setup() {
 	var err error
-	ctx := context.Background()
 	serviceAccount := GetServiceAccount()
 
 	if serviceAccount == nil {
