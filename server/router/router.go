@@ -18,15 +18,22 @@ func InitRouter() *gin.Engine {
 	router := gin.Default()
 
 	router.Use(gin.Logger())
+	router.Use(middlewares.ErrorHandler())
 
 	router.GET("/ping", pong)
 
-	router.Use(middlewares.ErrorHandler())
-
-	authRouter := router.Group("/auth").Use(middlewares.RequireAuth())
+	authRoutes := router.Group("/auth")
+	authRoutes.Use(middlewares.RequireAuth())
 	{
-		authRouter.GET("/users/:id", api.GetUser)
-		authRouter.PUT("/users/:id", api.UpdateUser)
+		authRoutes.GET("/users/:id", api.GetUser)
+		authRoutes.PUT("/users/:id", api.UpdateUser)
+	}
+
+	bookRoutes := router.Group("/books")
+	// bookRoutes.Use(middlewares.RequireAuth())
+	{
+		bookRoutes.GET("/", api.GetBooks)
+		bookRoutes.POST("/", api.AddBook)
 	}
 
 	router.NoRoute(func(c *gin.Context) {
