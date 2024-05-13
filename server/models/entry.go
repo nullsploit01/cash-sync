@@ -7,37 +7,23 @@ import (
 	"github.com/google/uuid"
 )
 
-type PaymentMode string
-
-const (
-	PaymentModeOnline PaymentMode = "Online"
-	PaymentModeCash   PaymentMode = "Cash"
-)
-
-type EntryType int
-
-const (
-	EntryTypeCashIn  EntryType = 0
-	EntryTypeCashOut EntryType = 1
-)
-
 type Entry struct {
-	Id          string      `json:"id"`
-	UserId      string      `json:"userId" binding:"required"`
-	BookId      string      `json:"bookId" binding:"required"`
-	Amount      int32       `json:"amount" binding:"required"`
-	Remark      string      `json:"remark"`
-	PaymentMode PaymentMode `json:"paymentMode" binding:"required"`
-	Type        EntryType   `json:"type" binding:"required"`
-	CreatedAt   time.Time   `json:"createdAt"`
-	UpdatedAt   time.Time   `json:"updatedAt"`
+	Id          string    `json:"id"`
+	UserId      string    `json:"userId"`
+	BookId      string    `json:"bookId"`
+	Amount      float32   `json:"amount" binding:"required"`
+	Remark      string    `json:"remark"`
+	PaymentMode string    `json:"paymentMode" binding:"required,oneof=cashin cashout"`
+	Type        string    `json:"type" binding:"required,oneof=cash online"`
+	CreatedAt   time.Time `json:"createdAt"`
+	UpdatedAt   time.Time `json:"updatedAt"`
 }
 
-func AddEntry(userId string, entry Entry) error {
+func AddEntry(userId, bookId string, entry Entry) error {
 	_, _, err := client.Collection("entries").Add(ctx, Entry{
 		Id:          uuid.NewString(),
 		UserId:      userId,
-		BookId:      entry.BookId,
+		BookId:      bookId,
 		Amount:      entry.Amount,
 		Remark:      entry.Remark,
 		PaymentMode: entry.PaymentMode,
