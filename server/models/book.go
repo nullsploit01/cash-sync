@@ -9,11 +9,11 @@ import (
 )
 
 type Book struct {
-	Id        string
-	UserId    string
-	Name      string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Id        string    `json:"id"`
+	UserId    string    `json:"userId"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 func AddBook(name, userId string) error {
