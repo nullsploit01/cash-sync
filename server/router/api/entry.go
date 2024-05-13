@@ -36,6 +36,14 @@ func AddEntry(c *gin.Context) {
 }
 
 func GetEntries(c *gin.Context) {
+	bookId := c.Param("bookId")
 	userId := auth.GetIdUserFromContext(c)
-	c.IndentedJSON(http.StatusAccepted, gin.H{"message": userId})
+
+	entries, err := models.GetEntries(userId, bookId)
+	if err != nil {
+		c.Error(errors.UnknownException())
+		c.Abort()
+		return
+	}
+	c.IndentedJSON(http.StatusAccepted, entries)
 }
