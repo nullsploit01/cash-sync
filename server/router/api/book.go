@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/nullsploit01/cash-sync/models"
 	"github.com/nullsploit01/cash-sync/pkg/errors"
+	"github.com/nullsploit01/cash-sync/pkg/service/auth"
 )
 
 type AddBookRequest struct {
@@ -13,23 +14,9 @@ type AddBookRequest struct {
 }
 
 func GetBooks(c *gin.Context) {
-	user, exists := c.Get("user")
-
-	if !exists {
-		c.Error(errors.Unauthorized())
-		c.Abort()
-		return
-	}
-
-	userId, ok := user.(string)
-	if !ok {
-		c.Error(errors.BadRequest("Invalid User"))
-		c.Abort()
-		return
-	}
+	userId := auth.GetIdUserFromContext(c)
 
 	books, err := models.GetBooks(userId)
-
 	if err != nil {
 		c.Error(errors.UnknownException())
 		c.Abort()
@@ -39,24 +26,26 @@ func GetBooks(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, books)
 }
 
+func GetBook(c *gin.Context) {
+	bookId := c.Param("id")
+
+	userId := auth.GetIdUserFromContext(c)
+
+	book, err := models.GetBook(bookId, userId)
+	if err != nil {
+		c.Error(errors.UnknownException())
+		c.Abort()
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, book)
+
+}
+
 func AddBook(c *gin.Context) {
-	user, exists := c.Get("user")
-
-	if !exists {
-		c.Error(errors.Unauthorized())
-		c.Abort()
-		return
-	}
-
-	userId, ok := user.(string)
-	if !ok {
-		c.Error(errors.BadRequest("Invalid User"))
-		c.Abort()
-		return
-	}
+	userId := auth.GetIdUserFromContext(c)
 
 	var requestBody AddBookRequest
-
 	err := c.ShouldBindJSON(&requestBody)
 	if err != nil {
 		c.Error(errors.BadRequest(err.Error()))

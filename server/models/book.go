@@ -44,16 +44,35 @@ func GetBooks(userId string) ([]Book, error) {
 		}
 
 		if err != nil {
-			return nil, fmt.Errorf("failed to iterate: %v", err)
+			return nil, fmt.Errorf("failed to iterate: %v", err.Error())
 		}
 
 		var book Book
 		if err := doc.DataTo(&book); err != nil {
-			return nil, fmt.Errorf("failed to parse book data: %v", err)
+			return nil, fmt.Errorf("failed to parse book data: %v", err.Error())
 		}
 
 		books = append(books, book)
 	}
 
 	return books, nil
+}
+
+func GetBook(id, userId string) (Book, error) {
+	var book Book
+
+	iter := client.Collection("books").Where("Id", "==", id).Where("UserId", "==", userId).Limit(1).Documents(ctx)
+	doc, err := iter.Next()
+	if err == iterator.Done {
+		return book, fmt.Errorf("book not found")
+	}
+	if err != nil {
+		return book, fmt.Errorf("failed to retrieve book: %v", err)
+	}
+
+	if err := doc.DataTo(&book); err != nil {
+		return book, fmt.Errorf("failed to parse book data: %v", err)
+	}
+
+	return book, nil
 }

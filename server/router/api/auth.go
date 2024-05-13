@@ -6,7 +6,7 @@ import (
 	"github.com/clerk/clerk-sdk-go/v2/user"
 	"github.com/gin-gonic/gin"
 	"github.com/nullsploit01/cash-sync/pkg/errors"
-	"github.com/nullsploit01/cash-sync/service/auth"
+	"github.com/nullsploit01/cash-sync/pkg/service/auth"
 )
 
 func GetUser(c *gin.Context) {

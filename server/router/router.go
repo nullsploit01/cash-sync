@@ -34,6 +34,8 @@ func InitRouter() *gin.Engine {
 	{
 		bookRoutes.GET("/", api.GetBooks)
 		bookRoutes.POST("/", api.AddBook)
+
+		bookRoutes.GET("/:id", api.GetBook)
 	}
 
 	router.NoRoute(func(c *gin.Context) {
