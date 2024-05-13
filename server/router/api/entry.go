@@ -25,14 +25,14 @@ func AddEntry(c *gin.Context) {
 		return
 	}
 
-	err := models.AddEntry(userId, bookId, entry)
+	addedEntry, err := models.AddEntry(userId, bookId, entry)
 	if err != nil {
 		c.Error(errors.UnknownException())
 		c.Abort()
 		return
 	}
 
-	c.IndentedJSON(http.StatusCreated, gin.H{"message": "Entry added successfully"})
+	c.IndentedJSON(http.StatusCreated, addedEntry)
 }
 
 func GetEntries(c *gin.Context) {

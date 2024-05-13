@@ -20,8 +20,8 @@ type Entry struct {
 	UpdatedAt   time.Time `json:"updatedAt"`
 }
 
-func AddEntry(userId, bookId string, entry Entry) error {
-	_, _, err := client.Collection("entries").Add(ctx, Entry{
+func AddEntry(userId, bookId string, entry Entry) (Entry, error) {
+	var entryToAdd Entry = Entry{
 		Id:          uuid.NewString(),
 		UserId:      userId,
 		BookId:      bookId,
@@ -31,13 +31,14 @@ func AddEntry(userId, bookId string, entry Entry) error {
 		Type:        entry.Type,
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
-	})
+	}
+	_, _, err := client.Collection("entries").Add(ctx, entryToAdd)
 
 	if err != nil {
-		return fmt.Errorf("could not add book: %s", err.Error())
+		return Entry{}, fmt.Errorf("could not add book: %s", err.Error())
 	}
 
-	return nil
+	return entryToAdd, nil
 }
 
 func GetEntries(userId, bookId string) ([]Entry, error) {
