@@ -11,7 +11,8 @@
     "ts:check": "tsc",
     "prettier:fix": "prettier --write ./**/src/**/*{js,ts,jsx,tsx}",
     "lint:fix": "eslint ./src/**/*{js,ts,jsx,tsx} --fix",
-    "prepare": "cd .. && husky app/.husky"
+    "prepare": "cd .. && husky app/.husky",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@clerk/clerk-expo": "^1.0.5",
@@ -52,6 +53,7 @@
     "eslint-plugin-unused-imports": "^3.1.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "patch-package": "^8.0.0",
     "prettier": "^3.2.5"
   },
   "lint-staged": {

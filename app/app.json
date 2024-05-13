@@ -17,14 +17,14 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "inkeep.nullsploit.cashsync" // update identifier after bug fix
+      "bundleIdentifier": "in.nullsploit.cashsync"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "inkeep.nullsploit.cashsync" // update identifier after bug fix
+      "package": "in.nullsploit.cashsync"
     },
     "web": {
       "favicon": "./assets/favicon.png"

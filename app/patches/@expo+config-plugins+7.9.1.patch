@@ -1,0 +1,38 @@
+diff --git a/node_modules/@expo/config-plugins/build/android/Package.js b/node_modules/@expo/config-plugins/build/android/Package.js
+index e7e3cd6..4f2a7bb 100644
+--- a/node_modules/@expo/config-plugins/build/android/Package.js
++++ b/node_modules/@expo/config-plugins/build/android/Package.js
+@@ -245,7 +245,15 @@ async function renamePackageOnDiskForType({
+     try {
+       if (_fs().default.lstatSync(filepath).isFile()) {
+         let contents = _fs().default.readFileSync(filepath).toString();
+-        contents = replacePackageName(contents, currentPackageName, packageName);
++        if (_path().default.extname(filepath) === ".kt") {
++          contents = replacePackageName(
++            contents,
++            currentPackageName,
++            kotlinSanitized(packageName)
++          );
++        } else {
++          contents = replacePackageName(contents, currentPackageName, packageName);
++        }
+         if (['.h', '.cpp'].includes(_path().default.extname(filepath))) {
+           contents = contents.replace(new RegExp(transformJavaClassDescriptor(currentPackageName).replace(/\//g, '\\'), 'g'), transformJavaClassDescriptor(packageName));
+         }
+@@ -256,6 +264,16 @@ async function renamePackageOnDiskForType({
+     }
+   });
+ }
++function kotlinSanitized(packageName) {
++  const stringsToWrap = ["is", "in", "as", "fun"];
++  const parts = packageName.split(".");
++  const cleanParts = parts.map((part) =>
++    stringsToWrap.includes(part) ? "`" + part + "`" : part
++  );
++
++  const cleanName = cleanParts.join(".");
++  return cleanName;
++}
+ function moveFileSync(src, dest) {
+   _fs().default.mkdirSync(_path().default.dirname(dest), {
+     recursive: true

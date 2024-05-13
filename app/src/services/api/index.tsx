@@ -1,7 +1,7 @@
 import { useSession } from '@clerk/clerk-expo'
 import axios, { AxiosError, AxiosResponse, HttpStatusCode, InternalAxiosRequestConfig } from 'axios'
 import { router } from 'expo-router'
-import { FC, PropsWithChildren, useEffect, useState } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 
 import { Environment } from 'src/config/environment'
 import { Routes } from 'src/constants/routes'
@@ -11,7 +11,7 @@ export const httpClient = axios.create({
   baseURL: Environment.API_URL
 })
 
-export const HttpInterceptor: FC<PropsWithChildren> = ({ children }) => {
+export const HttpInterceptor = ({ children }: PropsWithChildren) => {
   const { session, isLoaded } = useSession()
   const { showNotification } = useNotification()
 
