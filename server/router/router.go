@@ -30,12 +30,18 @@ func InitRouter() *gin.Engine {
 	}
 
 	bookRoutes := router.Group("/books")
-	bookRoutes.Use(middlewares.RequireAuth())
+	// bookRoutes.Use(middlewares.RequireAuth())
 	{
 		bookRoutes.GET("/", api.GetBooks)
 		bookRoutes.POST("/", api.AddBook)
 
-		bookRoutes.GET("/:id", api.GetBook)
+		bookRoutes.GET("/:bookId", api.GetBook)
+
+		entryRoutes := bookRoutes.Group("/:bookId/entries")
+		{
+			entryRoutes.GET("/", api.GetEntries)
+			entryRoutes.POST("/", api.AddEntry)
+		}
 	}
 
 	router.NoRoute(func(c *gin.Context) {

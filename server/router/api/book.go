@@ -27,7 +27,7 @@ func GetBooks(c *gin.Context) {
 }
 
 func GetBook(c *gin.Context) {
-	bookId := c.Param("id")
+	bookId := c.Param("bookId")
 
 	userId := auth.GetIdUserFromContext(c)
 
@@ -39,7 +39,6 @@ func GetBook(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusOK, book)
-
 }
 
 func AddBook(c *gin.Context) {
