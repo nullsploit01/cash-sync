@@ -7,6 +7,7 @@ import (
 	"github.com/nullsploit01/cash-sync/models"
 	"github.com/nullsploit01/cash-sync/pkg/errors"
 	"github.com/nullsploit01/cash-sync/pkg/service/authService"
+	"github.com/nullsploit01/cash-sync/pkg/service/modelService"
 )
 
 type AddEntryRequest struct {
@@ -25,7 +26,7 @@ func AddEntry(c *gin.Context) {
 		return
 	}
 
-	addedEntry, err := models.AddEntry(userId, bookId, entry)
+	addedEntry, err := modelService.AddEntry(userId, bookId, entry)
 	if err != nil {
 		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
@@ -39,7 +40,7 @@ func GetEntries(c *gin.Context) {
 	bookId := c.Param("bookId")
 	userId := authService.GetIdUserFromContext(c)
 
-	entries, err := models.GetEntries(userId, bookId)
+	entries, err := modelService.GetEntries(userId, bookId)
 	if err != nil {
 		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
