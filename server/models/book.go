@@ -12,15 +12,17 @@ type Book struct {
 	Id        string    `json:"id"`
 	UserId    string    `json:"userId"`
 	Name      string    `json:"name"`
+	Balance   int64     `json:"balance"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }
 
-func AddBook(name, userId string) (Book, error) {
+func AddBook(userId, name string) (Book, error) {
 	var bookToAdd Book = Book{
 		Id:        uuid.NewString(),
 		UserId:    userId,
 		Name:      name,
+		Balance:   0,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
