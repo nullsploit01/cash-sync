@@ -9,6 +9,7 @@ import Loading from 'src/components/organisms/loading'
 import { useNotification } from 'src/hooks/use-notification'
 import { bookService } from 'src/services/api/book'
 import { IBook } from 'src/types/models'
+import { getGreeting } from 'src/utils/date'
 
 const HomePage = () => {
   const { user } = useUser()
@@ -41,7 +42,12 @@ const HomePage = () => {
 
   return (
     <Fragment>
-      <Stack.Screen options={{ headerTitle: 'Your' }} />
+      <Stack.Screen
+        options={{
+          headerTitle: getGreeting(user?.firstName ?? 'Your Books'),
+          headerTitleStyle: { fontWeight: '400' }
+        }}
+      />
       {_loading ? (
         <Loading />
       ) : (

@@ -1,3 +1,8 @@
+import dayjs from 'dayjs'
+import greetPlugin from 'dayjs-greet'
+
+dayjs.extend(greetPlugin)
+
 export const getFormattedDate = (date: Date) => {
   return new Date(date).toLocaleDateString('en-US', {
     day: 'numeric',
@@ -12,4 +17,8 @@ export const getFormattedTime = (date: Date) => {
     minute: '2-digit',
     hour12: true
   })
+}
+
+export const getGreeting = (name: string, date = Date.now()) => {
+  return dayjs(date).greet(` ${name}!`)
 }

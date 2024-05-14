@@ -21,6 +21,8 @@
     "@tamagui/config": "^1.95.1",
     "@tamagui/lucide-icons": "^1.95.1",
     "axios": "^1.6.8",
+    "dayjs": "^1.11.11",
+    "dayjs-greet": "^1.1.2",
     "expo": "~50.0.14",
     "expo-constants": "~15.4.6",
     "expo-dev-client": "~3.3.11",
