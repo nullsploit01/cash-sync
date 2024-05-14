@@ -3,6 +3,10 @@ export const Routes = {
     name: 'Home Page',
     link: '/'
   },
+  EntriesPage: {
+    name: 'Entries Page',
+    link: '/entries'
+  },
   EntryPage: {
     name: 'Entry Page',
     link: '/entry'
