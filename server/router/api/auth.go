@@ -6,12 +6,12 @@ import (
 	"github.com/clerk/clerk-sdk-go/v2/user"
 	"github.com/gin-gonic/gin"
 	"github.com/nullsploit01/cash-sync/pkg/errors"
-	"github.com/nullsploit01/cash-sync/pkg/service/auth"
+	"github.com/nullsploit01/cash-sync/pkg/service/authService"
 )
 
 func GetUser(c *gin.Context) {
 	id := c.Param("id")
-	user, err := auth.GetUser(id)
+	user, err := authService.GetUser(id)
 
 	if err != nil {
 		c.Error(errors.BadRequest(err.Error()))
@@ -32,7 +32,7 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
-	user, err := auth.UpdateUser(id, &params)
+	user, err := authService.UpdateUser(id, &params)
 
 	if err != nil {
 		c.Error(errors.Unauthorized())

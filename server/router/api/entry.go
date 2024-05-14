@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/nullsploit01/cash-sync/models"
 	"github.com/nullsploit01/cash-sync/pkg/errors"
-	"github.com/nullsploit01/cash-sync/pkg/service/auth"
+	"github.com/nullsploit01/cash-sync/pkg/service/authService"
 )
 
 type AddEntryRequest struct {
@@ -16,7 +16,7 @@ type AddEntryRequest struct {
 func AddEntry(c *gin.Context) {
 	bookId := c.Param("bookId")
 
-	userId := auth.GetIdUserFromContext(c)
+	userId := authService.GetIdUserFromContext(c)
 	var entry models.Entry
 
 	if err := c.ShouldBindJSON(&entry); err != nil {
@@ -37,7 +37,7 @@ func AddEntry(c *gin.Context) {
 
 func GetEntries(c *gin.Context) {
 	bookId := c.Param("bookId")
-	userId := auth.GetIdUserFromContext(c)
+	userId := authService.GetIdUserFromContext(c)
 
 	entries, err := models.GetEntries(userId, bookId)
 	if err != nil {

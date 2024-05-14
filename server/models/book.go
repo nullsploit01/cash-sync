@@ -16,20 +16,21 @@ type Book struct {
 	UpdatedAt time.Time `json:"updatedAt"`
 }
 
-func AddBook(name, userId string) error {
-	_, _, err := client.Collection("books").Add(ctx, Book{
+func AddBook(name, userId string) (Book, error) {
+	var bookToAdd Book = Book{
 		Id:        uuid.NewString(),
 		UserId:    userId,
 		Name:      name,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
-	})
+	}
+	_, _, err := client.Collection("books").Add(ctx, bookToAdd)
 
 	if err != nil {
-		return fmt.Errorf("could not add book: %s", err.Error())
+		return bookToAdd, fmt.Errorf("could not add book: %s", err.Error())
 	}
 
-	return nil
+	return bookToAdd, nil
 }
 
 func GetBooks(userId string) ([]Book, error) {

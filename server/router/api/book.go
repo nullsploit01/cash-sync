@@ -4,19 +4,15 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nullsploit01/cash-sync/models"
 	"github.com/nullsploit01/cash-sync/pkg/errors"
-	"github.com/nullsploit01/cash-sync/pkg/service/auth"
+	"github.com/nullsploit01/cash-sync/pkg/service/authService"
+	"github.com/nullsploit01/cash-sync/pkg/service/modelService"
 )
 
-type AddBookRequest struct {
-	Name string `json:"name" binding:"required"`
-}
-
 func GetBooks(c *gin.Context) {
-	userId := auth.GetIdUserFromContext(c)
+	userId := authService.GetIdUserFromContext(c)
 
-	books, err := models.GetBooks(userId)
+	books, err := modelService.GetBooks(userId)
 	if err != nil {
 		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
@@ -29,9 +25,9 @@ func GetBooks(c *gin.Context) {
 func GetBook(c *gin.Context) {
 	bookId := c.Param("bookId")
 
-	userId := auth.GetIdUserFromContext(c)
+	userId := authService.GetIdUserFromContext(c)
 
-	book, err := models.GetBook(bookId, userId)
+	book, err := modelService.GetBook(userId, bookId)
 	if err != nil {
 		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
@@ -42,9 +38,13 @@ func GetBook(c *gin.Context) {
 }
 
 func AddBook(c *gin.Context) {
-	userId := auth.GetIdUserFromContext(c)
+	type addBookRequest struct {
+		Name string `json:"name" binding:"required"`
+	}
 
-	var requestBody AddBookRequest
+	var requestBody addBookRequest
+	userId := authService.GetIdUserFromContext(c)
+
 	err := c.ShouldBindJSON(&requestBody)
 	if err != nil {
 		c.Error(errors.BadRequest(err.Error()))
@@ -52,12 +52,12 @@ func AddBook(c *gin.Context) {
 		return
 	}
 
-	err = models.AddBook(requestBody.Name, userId)
+	book, err := modelService.AddBook(requestBody.Name, userId)
 	if err != nil {
 		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
 		return
 	}
 
-	c.IndentedJSON(http.StatusCreated, gin.H{"message": "Book added successfully"})
+	c.IndentedJSON(http.StatusCreated, book)
 }

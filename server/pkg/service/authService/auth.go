@@ -1,4 +1,4 @@
-package auth
+package authService
 
 import (
 	"github.com/clerk/clerk-sdk-go/v2"

@@ -1,4 +1,4 @@
-package auth
+package authService
 
 import (
 	"context"
@@ -39,7 +39,7 @@ func UpdateUser(id string, updateParams *user.UpdateParams) (User, error) {
 
 func MapClerkUser(clerkUser *clerk.User) User {
 	if clerkUser == nil {
-		return User{} // Return an empty User struct if clerkUser is nil
+		return User{}
 	}
 
 	var emailAddresses []string
