@@ -62,16 +62,18 @@ func GetBook(id, userId string) (Book, error) {
 	var book Book
 
 	iter := client.Collection("books").Where("Id", "==", id).Where("UserId", "==", userId).Limit(1).Documents(ctx)
+
 	doc, err := iter.Next()
 	if err == iterator.Done {
-		return book, fmt.Errorf("book not found")
+		return Book{}, fmt.Errorf("book not found")
 	}
+
 	if err != nil {
-		return book, fmt.Errorf("failed to retrieve book: %v", err)
+		return Book{}, fmt.Errorf("failed to retrieve book: %v", err)
 	}
 
 	if err := doc.DataTo(&book); err != nil {
-		return book, fmt.Errorf("failed to parse book data: %v", err)
+		return Book{}, fmt.Errorf("failed to parse book data: %v", err)
 	}
 
 	return book, nil

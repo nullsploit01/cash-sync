@@ -27,7 +27,7 @@ func AddEntry(c *gin.Context) {
 
 	addedEntry, err := models.AddEntry(userId, bookId, entry)
 	if err != nil {
-		c.Error(errors.UnknownException())
+		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
 		return
 	}
@@ -41,7 +41,7 @@ func GetEntries(c *gin.Context) {
 
 	entries, err := models.GetEntries(userId, bookId)
 	if err != nil {
-		c.Error(errors.UnknownException())
+		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
 		return
 	}

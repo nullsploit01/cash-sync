@@ -18,7 +18,7 @@ func GetBooks(c *gin.Context) {
 
 	books, err := models.GetBooks(userId)
 	if err != nil {
-		c.Error(errors.UnknownException())
+		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
 		return
 	}
@@ -33,7 +33,7 @@ func GetBook(c *gin.Context) {
 
 	book, err := models.GetBook(bookId, userId)
 	if err != nil {
-		c.Error(errors.UnknownException())
+		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
 		return
 	}
@@ -54,7 +54,7 @@ func AddBook(c *gin.Context) {
 
 	err = models.AddBook(requestBody.Name, userId)
 	if err != nil {
-		c.Error(errors.UnknownException())
+		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
 		return
 	}
