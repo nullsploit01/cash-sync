@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react'
 
 import { EntryTypes } from 'src/constants/entry'
 import { IBadgeProps } from 'src/types/components/atoms'
+import { IBook } from 'src/types/models'
 import { IEntry } from 'src/types/stores'
 
 export interface IEntryCardProps {
@@ -22,4 +23,8 @@ export interface IEntryDetailsCardProps {
 
 export interface IPaymentModeBadgeProps extends IBadgeProps {
   entry: IEntry
+}
+
+export interface IBookListItemProps {
+  book: IBook
 }

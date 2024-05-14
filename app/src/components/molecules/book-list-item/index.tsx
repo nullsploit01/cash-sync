@@ -1,10 +1,10 @@
 import { Book, MoreVertical } from '@tamagui/lucide-icons'
 import { Separator, Text, View, XStack, YStack } from 'tamagui'
 
-import { IBook } from 'src/types/models'
+import { IBookListItemProps } from 'src/types/components/molecules'
 import { getFormattedDate } from 'src/utils/date'
 
-const BookListItem = ({ ...props }: IBook) => {
+const BookListItem = ({ book }: IBookListItemProps) => {
   return (
     <View marginHorizontal="$3">
       <XStack marginVertical="$3" justifyContent="space-between" alignItems="center">
@@ -13,12 +13,12 @@ const BookListItem = ({ ...props }: IBook) => {
             <Book />
           </View>
           <YStack>
-            <Text>{props.name}</Text>
-            <Text theme="alt2">Updated on {getFormattedDate(props.updatedAt)}</Text>
+            <Text>{book.name}</Text>
+            <Text theme="alt2">Updated on {getFormattedDate(book.updatedAt)}</Text>
           </YStack>
         </XStack>
         <XStack>
-          <Text>{props.balance}</Text>
+          <Text>{book.balance}</Text>
           <MoreVertical />
         </XStack>
       </XStack>
