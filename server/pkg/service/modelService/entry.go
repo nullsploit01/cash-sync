@@ -24,5 +24,11 @@ func AddEntry(userId, bookId string, entry models.Entry) (models.Entry, error) {
 		return models.Entry{}, err
 	}
 
+	_, err = UpdateBalance(userId, bookId, entry)
+
+	if err != nil {
+		return models.Entry{}, err
+	}
+
 	return addedEntry, nil
 }

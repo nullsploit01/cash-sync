@@ -13,6 +13,8 @@ type Book struct {
 	UserId    string    `json:"userId"`
 	Name      string    `json:"name"`
 	Balance   int64     `json:"balance"`
+	TotalIn   int64     `json:"totalIn"`
+	TotalOut  int64     `json:"totalOut"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }
@@ -23,6 +25,8 @@ func AddBook(userId, name string) (Book, error) {
 		UserId:    userId,
 		Name:      name,
 		Balance:   0,
+		TotalIn:   0,
+		TotalOut:  0,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
@@ -61,10 +65,10 @@ func GetBooks(userId string) ([]Book, error) {
 	return books, nil
 }
 
-func GetBook(id, userId string) (Book, error) {
+func GetBook(userId, bookId string) (Book, error) {
 	var book Book
 
-	iter := client.Collection("books").Where("Id", "==", id).Where("UserId", "==", userId).Limit(1).Documents(ctx)
+	iter := client.Collection("books").Where("Id", "==", bookId).Where("UserId", "==", userId).Limit(1).Documents(ctx)
 
 	doc, err := iter.Next()
 	if err == iterator.Done {
@@ -80,4 +84,24 @@ func GetBook(id, userId string) (Book, error) {
 	}
 
 	return book, nil
+}
+
+func UpdateBook(userId string, bookToUpdate Book) (Book, error) {
+	iter := client.Collection("books").Where("Id", "==", bookToUpdate.Id).Where("UserId", "==", userId).Documents(ctx)
+	defer iter.Stop()
+
+	doc, err := iter.Next()
+	if err == iterator.Done {
+		return Book{}, fmt.Errorf("book not found")
+	}
+	if err != nil {
+		return Book{}, err
+	}
+
+	_, err = doc.Ref.Set(ctx, bookToUpdate)
+	if err != nil {
+		return Book{}, err
+	}
+
+	return bookToUpdate, nil
 }

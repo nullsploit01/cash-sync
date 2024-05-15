@@ -12,10 +12,10 @@ type Entry struct {
 	Id          string    `json:"id"`
 	UserId      string    `json:"userId"`
 	BookId      string    `json:"bookId"`
-	Amount      float32   `json:"amount" binding:"required"`
+	Amount      int64     `json:"amount" binding:"required"`
 	Remark      string    `json:"remark"`
-	PaymentMode string    `json:"paymentMode" binding:"required,oneof=cashin cashout"`
-	Type        string    `json:"type" binding:"required,oneof=cash online"`
+	PaymentMode string    `json:"paymentMode" binding:"required,oneof=cash online"`
+	Type        string    `json:"type" binding:"required,oneof=cashin cashout"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
 }
