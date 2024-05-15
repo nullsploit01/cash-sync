@@ -61,3 +61,18 @@ func AddBook(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusCreated, book)
 }
+
+func DeleteBook(c *gin.Context) {
+	bookId := c.Param("bookId")
+	userId := authService.GetIdUserFromContext(c)
+
+	deletedBook, err := modelService.DeleteBook(userId, bookId)
+
+	if err != nil {
+		c.Error(errors.BadRequest(err.Error()))
+		c.Abort()
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, deletedBook)
+}

@@ -63,14 +63,14 @@ func DeleteEntry(c *gin.Context) {
 
 	userId := authService.GetIdUserFromContext(c)
 
-	addedEntry, err := modelService.DeleteEntry(userId, bookId, entryId)
+	deletedEntry, err := modelService.DeleteEntry(userId, bookId, entryId)
 	if err != nil {
 		c.Error(errors.BadRequest(err.Error()))
 		c.Abort()
 		return
 	}
 
-	c.IndentedJSON(http.StatusOK, addedEntry)
+	c.IndentedJSON(http.StatusOK, deletedEntry)
 }
 
 func GetEntries(c *gin.Context) {

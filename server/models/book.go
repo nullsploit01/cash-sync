@@ -105,3 +105,29 @@ func UpdateBook(userId string, bookToUpdate Book) (Book, error) {
 
 	return bookToUpdate, nil
 }
+
+func DeleteBook(userId, bookId string) (Book, error) {
+	iter := client.Collection("books").Where("Id", "==", bookId).Where("UserId", "==", userId).Documents(ctx)
+	defer iter.Stop()
+
+	doc, err := iter.Next()
+	if err == iterator.Done {
+		return Book{}, fmt.Errorf("book not found")
+	}
+	if err != nil {
+		return Book{}, err
+	}
+
+	var book Book
+	err = doc.DataTo(&book)
+	if err != nil {
+		return Book{}, err
+	}
+
+	_, err = doc.Ref.Delete(ctx)
+	if err != nil {
+		return Book{}, err
+	}
+
+	return book, nil
+}
