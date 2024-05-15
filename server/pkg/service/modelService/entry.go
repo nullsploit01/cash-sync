@@ -38,12 +38,6 @@ func AddEntry(userId, bookId string, entry models.Entry) (models.Entry, error) {
 }
 
 func UpdateEntry(userId, bookId string, entry models.Entry) (models.Entry, error) {
-	_, err := GetBook(userId, bookId)
-
-	if err != nil {
-		return models.Entry{}, err
-	}
-
 	entry.BookId = bookId
 	entry.UserId = userId
 	entry.UpdatedAt = time.Now()
@@ -60,4 +54,14 @@ func UpdateEntry(userId, bookId string, entry models.Entry) (models.Entry, error
 	}
 
 	return updatedEntry, nil
+}
+
+func DeleteEntry(userId, bookId, entryId string) (models.Entry, error) {
+	deletedEntry, err := models.DeleteEntry(userId, bookId, entryId)
+
+	if err != nil {
+		return models.Entry{}, err
+	}
+
+	return deletedEntry, nil
 }

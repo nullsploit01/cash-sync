@@ -58,6 +58,21 @@ func UpdateEntry(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, addedEntry)
 }
 
+func DeleteEntry(c *gin.Context) {
+	bookId, entryId := c.Param("bookId"), c.Param("entryId")
+
+	userId := authService.GetIdUserFromContext(c)
+
+	addedEntry, err := modelService.DeleteEntry(userId, bookId, entryId)
+	if err != nil {
+		c.Error(errors.BadRequest(err.Error()))
+		c.Abort()
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, addedEntry)
+}
+
 func GetEntries(c *gin.Context) {
 	bookId := c.Param("bookId")
 	userId := authService.GetIdUserFromContext(c)

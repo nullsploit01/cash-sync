@@ -42,6 +42,7 @@ func InitRouter() *gin.Engine {
 			entryRoutes.GET("/", api.GetEntries)
 			entryRoutes.POST("/", api.AddEntry)
 			entryRoutes.PUT("/", api.UpdateEntry)
+			entryRoutes.DELETE("/:entryId", api.DeleteEntry)
 		}
 	}
 

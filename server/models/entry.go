@@ -86,3 +86,29 @@ func UpdateEntry(userId, bookId string, entry Entry) (Entry, error) {
 
 	return entry, nil
 }
+
+func DeleteEntry(userId, bookId, entryId string) (Entry, error) {
+	iter := client.Collection("entries").Where("Id", "==", entryId).Where("UserId", "==", userId).Where("BookId", "==", bookId).Documents(ctx)
+	defer iter.Stop()
+
+	doc, err := iter.Next()
+	if err == iterator.Done {
+		return Entry{}, fmt.Errorf("entry not found")
+	}
+	if err != nil {
+		return Entry{}, err
+	}
+
+	var entry Entry
+	err = doc.DataTo(&entry)
+	if err != nil {
+		return Entry{}, err
+	}
+
+	_, err = doc.Ref.Delete(ctx)
+	if err != nil {
+		return Entry{}, err
+	}
+
+	return entry, nil
+}
