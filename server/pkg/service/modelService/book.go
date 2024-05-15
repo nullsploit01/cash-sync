@@ -32,19 +32,30 @@ func AddBook(userId, bookName string) (models.Book, error) {
 	return book, nil
 }
 
-func UpdateBalance(userId, bookId string, entry models.Entry) (models.Book, error) {
+func UpdateBalance(userId, bookId string) (models.Book, error) {
 	book, err := models.GetBook(userId, bookId)
 	if err != nil {
 		return models.Book{}, err
 	}
 
-	if entry.Type == "cashin" {
-		book.TotalIn += entry.Amount
-	} else {
-		book.TotalOut += entry.Amount
+	entries, err := models.GetEntries(userId, bookId)
+	if err != nil {
+		return models.Book{}, err
 	}
 
-	book.Balance = book.TotalIn - book.TotalOut
+	var totalIn, totalOut int64
+
+	for _, entry := range entries {
+		if entry.Type == "cashin" {
+			totalIn += entry.Amount
+		} else if entry.Type == "cashout" {
+			totalOut += entry.Amount
+		}
+	}
+
+	book.TotalIn = totalIn
+	book.TotalOut = totalOut
+	book.Balance = totalIn - totalOut
 
 	_, err = models.UpdateBook(userId, book)
 

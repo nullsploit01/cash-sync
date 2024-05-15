@@ -66,3 +66,23 @@ func GetEntries(userId, bookId string) ([]Entry, error) {
 
 	return entries, nil
 }
+
+func UpdateEntry(userId, bookId string, entry Entry) (Entry, error) {
+	iter := client.Collection("entries").Where("Id", "==", entry.Id).Where("UserId", "==", userId).Documents(ctx)
+	defer iter.Stop()
+
+	doc, err := iter.Next()
+	if err == iterator.Done {
+		return Entry{}, fmt.Errorf("entry not found")
+	}
+	if err != nil {
+		return Entry{}, err
+	}
+
+	_, err = doc.Ref.Set(ctx, entry)
+	if err != nil {
+		return Entry{}, err
+	}
+
+	return entry, nil
+}

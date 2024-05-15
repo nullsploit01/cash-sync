@@ -36,6 +36,28 @@ func AddEntry(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, addedEntry)
 }
 
+func UpdateEntry(c *gin.Context) {
+	bookId := c.Param("bookId")
+
+	userId := authService.GetIdUserFromContext(c)
+	var entry models.Entry
+
+	if err := c.ShouldBindJSON(&entry); err != nil {
+		c.Error(errors.BadRequest(err.Error()))
+		c.Abort()
+		return
+	}
+
+	addedEntry, err := modelService.UpdateEntry(userId, bookId, entry)
+	if err != nil {
+		c.Error(errors.BadRequest(err.Error()))
+		c.Abort()
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, addedEntry)
+}
+
 func GetEntries(c *gin.Context) {
 	bookId := c.Param("bookId")
 	userId := authService.GetIdUserFromContext(c)
