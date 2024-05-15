@@ -12,7 +12,14 @@ func GetEntries(userId, bookId string) ([]models.Entry, error) {
 }
 
 func AddEntry(userId, bookId string, entry models.Entry) (models.Entry, error) {
+	_, err := GetBook(userId, bookId)
+
+	if err != nil {
+		return models.Entry{}, err
+	}
+
 	addedEntry, err := models.AddEntry(userId, bookId, entry)
+
 	if err != nil {
 		return models.Entry{}, err
 	}
