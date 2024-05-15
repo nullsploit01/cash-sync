@@ -1,8 +1,6 @@
 package modelService
 
 import (
-	"time"
-
 	"github.com/nullsploit01/cash-sync/models"
 )
 
@@ -40,7 +38,6 @@ func AddEntry(userId, bookId string, entry models.Entry) (models.Entry, error) {
 func UpdateEntry(userId, bookId string, entry models.Entry) (models.Entry, error) {
 	entry.BookId = bookId
 	entry.UserId = userId
-	entry.UpdatedAt = time.Now()
 	updatedEntry, err := models.UpdateEntry(userId, bookId, entry)
 
 	if err != nil {

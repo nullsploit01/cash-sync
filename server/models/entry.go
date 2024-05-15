@@ -79,6 +79,7 @@ func UpdateEntry(userId, bookId string, entry Entry) (Entry, error) {
 		return Entry{}, err
 	}
 
+	entry.UpdatedAt = time.Now()
 	_, err = doc.Ref.Set(ctx, entry)
 	if err != nil {
 		return Entry{}, err

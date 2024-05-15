@@ -98,6 +98,7 @@ func UpdateBook(userId string, bookToUpdate Book) (Book, error) {
 		return Book{}, err
 	}
 
+	bookToUpdate.UpdatedAt = time.Now()
 	_, err = doc.Ref.Set(ctx, bookToUpdate)
 	if err != nil {
 		return Book{}, err
