@@ -37,7 +37,7 @@ func AddEntry(c *gin.Context) {
 }
 
 func UpdateEntry(c *gin.Context) {
-	bookId := c.Param("bookId")
+	bookId, entryId := c.Param("bookId"), c.Param("entryId")
 
 	userId := authService.GetIdUserFromContext(c)
 	var entry models.Entry
@@ -48,6 +48,7 @@ func UpdateEntry(c *gin.Context) {
 		return
 	}
 
+	entry.Id = entryId
 	addedEntry, err := modelService.UpdateEntry(userId, bookId, entry)
 	if err != nil {
 		c.Error(errors.BadRequest(err.Error()))
