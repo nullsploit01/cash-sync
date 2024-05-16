@@ -7,7 +7,7 @@
 *.test
 *.out
 go.work
-*/tmp/
+tmp/
 private
 
 # Expo
