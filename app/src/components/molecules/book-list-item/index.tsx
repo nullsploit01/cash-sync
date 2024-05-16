@@ -23,7 +23,7 @@ const BookListItem = ({ book }: IBookListItemProps) => {
           </YStack>
         </XStack>
         <XStack marginTop="$2">
-          <Text fontSize="$5" marginRight="$3">
+          <Text fontSize="$5" marginRight="$3" color={book.balance < 0 ? 'red' : 'green'}>
             {book.balance}
           </Text>
           <TouchableOpacity>

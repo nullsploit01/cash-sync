@@ -1,32 +1,23 @@
 import { useUser } from '@clerk/clerk-expo'
 import { AxiosError } from 'axios'
 import { Stack } from 'expo-router'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect } from 'react'
 
 import Layout from 'src/components/layout'
 import BookList from 'src/components/organisms/book-list'
 import Loading from 'src/components/organisms/loading'
 import { useNotification } from 'src/hooks/use-notification'
-import { bookService } from 'src/services/api/book'
-import { IBook } from 'src/types/models'
+import useBookStore from 'src/stores/use-book'
 import { getGreeting } from 'src/utils/date'
 
 const HomePage = () => {
   const { user } = useUser()
   const { showNotification } = useNotification()
-
-  const [_loading, setLoading] = useState(false)
-  const [_books, setBooks] = useState<IBook[]>([])
+  const { loading, books, getBooks } = useBookStore()
 
   useEffect(() => {
-    getBooks()
-  }, [])
-
-  const getBooks = async () => {
     try {
-      setLoading(true)
-      const { data } = await bookService.getBooks()
-      setBooks(data)
+      getBooks()
     } catch (error) {
       if (!(error instanceof AxiosError)) {
         showNotification({
@@ -35,10 +26,8 @@ const HomePage = () => {
           type: 'error'
         })
       }
-    } finally {
-      setLoading(false)
     }
-  }
+  }, [])
 
   return (
     <Fragment>
@@ -48,11 +37,11 @@ const HomePage = () => {
           headerTitleStyle: { fontWeight: '400' }
         }}
       />
-      {_loading ? (
+      {loading ? (
         <Loading />
       ) : (
         <Layout protectedRoute>
-          <BookList books={_books} />
+          <BookList books={books} />
         </Layout>
       )}
     </Fragment>
