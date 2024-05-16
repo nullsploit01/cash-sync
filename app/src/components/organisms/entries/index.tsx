@@ -3,12 +3,10 @@ import { View } from 'tamagui'
 
 import EntryCard from 'src/components/molecules/entry-card'
 import { Routes } from 'src/constants/routes'
-import useEntryStore from 'src/stores/use-entry'
-import { IEntry } from 'src/types/stores'
+import { IEntriesProps } from 'src/types/components/organisms'
+import { IEntry } from 'src/types/models'
 
-const Entries = () => {
-  const { entries } = useEntryStore()
-
+const Entries = ({ entries }: IEntriesProps) => {
   const handleEntryPress = (entry: IEntry) => {
     router.navigate({ pathname: Routes.EntryPage.link, params: { id: entry.id } })
   }

@@ -5,7 +5,7 @@ import { Card, Text, View, XStack } from 'tamagui'
 import Layout from 'src/components/layout'
 import EntryDetailsCard from 'src/components/molecules/entry-details-card'
 import useEntryStore from 'src/stores/use-entry'
-import { IEntry } from 'src/types/stores'
+import { IEntry } from 'src/types/models'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 
 const EntryPage = () => {
@@ -35,7 +35,7 @@ const EntryPage = () => {
               </XStack>
               <XStack justifyContent="flex-end">
                 <Text theme="alt2">
-                  On {getFormattedDate(_entry.enteredOn)}, {getFormattedTime(_entry.enteredOn)}
+                  On {getFormattedDate(_entry.updatedAt)}, {getFormattedTime(_entry.updatedAt)}
                 </Text>
               </XStack>
             </Card.Header>

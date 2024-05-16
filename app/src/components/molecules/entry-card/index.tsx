@@ -8,7 +8,7 @@ const EntryCard = ({ entry }: IEntryCardProps) => {
   return (
     <View>
       <View paddingHorizontal="$3" marginBottom="$2">
-        <Text>{getFormattedDate(entry.enteredOn)}</Text>
+        <Text>{getFormattedDate(entry.updatedAt)}</Text>
       </View>
       <Card>
         <Card.Header paddingHorizontal="$3">
@@ -27,13 +27,13 @@ const EntryCard = ({ entry }: IEntryCardProps) => {
               <Text color={entry.type === EntryTypes.CASH_IN ? 'green' : 'red'}>
                 {entry.amount}
               </Text>
-              <Text>Balance: {entry.balanceOnEntry}</Text>
+              <Text>Balance: {entry.amount}</Text>
             </YStack>
           </XStack>
           <Text>{entry.remark}</Text>
           <Separator marginVertical="$2" />
           <Text fontWeight="800">
-            Entry by You <Text theme="alt1">at {getFormattedTime(entry.enteredOn)}</Text>
+            Entry by You <Text theme="alt1">at {getFormattedTime(entry.updatedAt)}</Text>
           </Text>
         </Card.Header>
       </Card>

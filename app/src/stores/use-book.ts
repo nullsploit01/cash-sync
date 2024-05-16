@@ -14,9 +14,8 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
   getBooks: async () => {
     try {
       get().setLoading(true)
-
       const { data } = await bookService.getBooks()
-      set({ books: data })
+      set({ books: data ?? [] })
     } finally {
       get().setLoading(false)
     }
@@ -27,14 +26,22 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
       try {
         get().setLoading(true)
         const { data } = await entryService.getEntries(get().currentBook.id)
-        set({ entries: data })
+        set({ entries: data ?? [] })
       } finally {
         get().setLoading(false)
       }
     }
   },
 
-  setCurrentBook: (id: string) => {},
+  setCurrentBook: async (id: string) => {
+    try {
+      get().setLoading(true)
+      const { data } = await bookService.getBook(id)
+      set({ currentBook: data })
+    } finally {
+      get().setLoading(false)
+    }
+  },
 
   setLoading: (value: boolean) => {
     set((state) => {

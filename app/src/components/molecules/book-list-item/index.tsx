@@ -4,10 +4,13 @@ import { TouchableOpacity } from 'react-native'
 import { Paragraph, Separator, Text, View, XStack, YStack } from 'tamagui'
 
 import { Routes } from 'src/constants/routes'
+import useBookStore from 'src/stores/use-book'
 import { IBookListItemProps } from 'src/types/components/molecules'
 import { getFormattedDate } from 'src/utils/date'
 
 const BookListItem = ({ book }: IBookListItemProps) => {
+  const { loading, setCurrentBook, entries, getEntries } = useBookStore()
+
   const handleBookPress = () => {
     router.navigate({ pathname: Routes.EntriesPage.link, params: { id: book.id } })
   }

@@ -6,7 +6,7 @@ import Layout from 'src/components/layout'
 import SaveEntryMenu from 'src/components/molecules/save-entry-menu'
 import EntryForm from 'src/components/organisms/entry-form'
 import { EntryTypes, PaymentModes } from 'src/constants/entry'
-import { IEntry } from 'src/types/stores'
+import { IEntry } from 'src/types/models'
 
 const AddEntryPage = () => {
   const { entryType } = useLocalSearchParams() as any

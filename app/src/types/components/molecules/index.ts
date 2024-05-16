@@ -2,8 +2,7 @@ import { Dispatch, SetStateAction } from 'react'
 
 import { EntryTypes } from 'src/constants/entry'
 import { IBadgeProps } from 'src/types/components/atoms'
-import { IBook } from 'src/types/models'
-import { IEntry } from 'src/types/stores'
+import { IBook, IEntry } from 'src/types/models'
 
 export interface IEntryCardProps {
   entry: IEntry

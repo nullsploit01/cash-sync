@@ -7,6 +7,10 @@ export const bookService = {
     return await httpClient.get<IBook[]>('/books')
   },
 
+  getBook: async (id: string) => {
+    return await httpClient.get<IBook>(`/books/${id}`)
+  },
+
   addBook: async (name: string) => {
     return await httpClient.post<IBook>('/books', { name })
   }

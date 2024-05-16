@@ -14,26 +14,26 @@ const useEntryStore = create<IEntryState & IEntryActions>((set) => ({
     set((state) => {
       const entries = [...state.entries, entry]
 
-      let netBalance = 0
-      let totalIn = 0
-      let totalOut = 0
+      const netBalance = 0
+      const totalIn = 0
+      const totalOut = 0
 
-      entries.forEach((entry) => {
-        const amount = parseFloat(entry.amount)
+      // entries.forEach((entry) => {
+      //   const amount = parseFloat(entry.amount)
 
-        if (!isNaN(amount)) {
-          if (entry.type === EntryTypes.CASH_IN) {
-            totalIn += amount
-          } else if (entry.type === EntryTypes.CASH_OUT) {
-            totalOut += amount
-          }
-        }
-      })
+      //   if (!isNaN(amount)) {
+      //     if (entry.type === EntryTypes.CASH_IN) {
+      //       totalIn += amount
+      //     } else if (entry.type === EntryTypes.CASH_OUT) {
+      //       totalOut += amount
+      //     }
+      //   }
+      // })
 
-      netBalance = totalIn - totalOut
+      // netBalance = totalIn - totalOut
 
       return {
-        entries: entries.sort((a, b) => b.enteredOn.getTime() - a.enteredOn.getTime()),
+        entries: entries.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime()), // add enteredOn
         netWorth: {
           netBalance,
           totalIn,
@@ -65,7 +65,7 @@ const useEntryStore = create<IEntryState & IEntryActions>((set) => ({
       netBalance = totalIn - totalOut
 
       const sortedEntries = updatedEntries.sort(
-        (a, b) => b.enteredOn.getTime() - a.enteredOn.getTime()
+        (a, b) => b.updatedAt.getTime() - a.updatedAt.getTime()
       )
 
       return {

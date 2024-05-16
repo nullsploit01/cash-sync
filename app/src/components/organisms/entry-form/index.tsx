@@ -16,10 +16,10 @@ const EntryForm = ({ entry, setEntry, validation }: IEntryFormProps) => {
   const prevDateRef = useRef(date)
 
   useEffect(() => {
-    if (prevDateRef.current !== date || !entry.enteredOn) {
+    if (prevDateRef.current !== date || !entry.updatedAt) {
       setEntry((prevEntry) => ({
         ...prevEntry,
-        enteredOn: date
+        updatedAt: date
       }))
     }
 
@@ -63,14 +63,14 @@ const EntryForm = ({ entry, setEntry, validation }: IEntryFormProps) => {
             startIcon={<CalendarDays size={16} strokeWidth="$0.25" />}
             endIcon={<ChevronDown size={16} strokeWidth="$0.5" />}
           >
-            {getFormattedDate(entry.enteredOn)}
+            {getFormattedDate(entry.updatedAt)}
           </PressableText>
           <PressableText
             onPress={() => showDatepicker('time')}
             startIcon={<Clock4 size={16} strokeWidth="$0.25" />}
             endIcon={<ChevronDown size={16} strokeWidth="$0.5" />}
           >
-            {getFormattedTime(entry.enteredOn)}
+            {getFormattedTime(entry.updatedAt)}
           </PressableText>
         </View>
         <InputField

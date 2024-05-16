@@ -6,7 +6,7 @@ import Layout from 'src/components/layout'
 import UpdateEntryMenu from 'src/components/molecules/update-entry-menu'
 import EntryForm from 'src/components/organisms/entry-form'
 import useEntryStore from 'src/stores/use-entry'
-import { IEntry } from 'src/types/stores'
+import { IEntry } from 'src/types/models'
 
 const EditEntryPage = () => {
   const { entries } = useEntryStore()

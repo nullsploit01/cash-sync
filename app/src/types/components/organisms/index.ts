@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import { IBook } from 'src/types/models'
-import { IEntry } from 'src/types/stores'
+import { IBook, IEntry } from 'src/types/models'
 
 export interface IEntryFormProps {
   entry: IEntry
@@ -15,4 +14,8 @@ export interface IEntryFormValidation {
 
 export interface IBookListProps {
   books: IBook[]
+}
+
+export interface IEntriesProps {
+  entries: IEntry[]
 }

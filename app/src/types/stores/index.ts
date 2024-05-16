@@ -1,15 +1,4 @@
-import { EntryTypes, PaymentModes } from 'src/constants/entry'
-import { IEntry as Entry, IBook } from 'src/types/models'
-
-export interface IEntry {
-  id: string
-  amount: string
-  remark: string
-  enteredOn: Date
-  paymentMode: PaymentModes
-  balanceOnEntry: number
-  type: EntryTypes
-}
+import { IBook, IEntry } from 'src/types/models'
 
 export interface INetWorth {
   netBalance: number
@@ -31,13 +20,13 @@ export interface IBookStoreState {
   loading: boolean
   loadingCount: number
   books: IBook[]
-  entries: Entry[]
+  entries: IEntry[]
   currentBook: IBook | null
 }
 
 export interface IBookStoreActions {
   getBooks: () => Promise<void>
   getEntries: () => Promise<void>
-  setCurrentBook: (id: string) => void
+  setCurrentBook: (id: string) => Promise<void>
   setLoading: (value: boolean) => void
 }

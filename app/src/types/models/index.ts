@@ -1,3 +1,5 @@
+import { EntryTypes, PaymentModes } from 'src/constants/entry'
+
 export interface IUser {
   id: string
   firstName: string
@@ -11,6 +13,8 @@ export interface IBook {
   userId: string
   name: string
   balance: number
+  totalIn: number
+  totalOut: number
   createdAt: Date
   updatedAt: Date
 }
@@ -19,10 +23,10 @@ export interface IEntry {
   id: string
   userId: string
   bookId: string
-  amount: number
+  amount: string
   remark: string
-  paymentMode: 'cash' | 'online'
-  type: 'cashin' | 'cashout'
+  paymentMode: PaymentModes
+  type: EntryTypes
   createdAt: Date
   updatedAt: Date
 }
