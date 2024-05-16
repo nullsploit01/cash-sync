@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router'
+import { Stack, useLocalSearchParams } from 'expo-router'
 import { Separator, XStack } from 'tamagui'
 
 import Layout from 'src/components/layout'
@@ -7,6 +7,8 @@ import BalanceCard from 'src/components/molecules/balance-card'
 import Entries from 'src/components/organisms/entries'
 
 const EntriesPage = () => {
+  const { id } = useLocalSearchParams()
+
   return (
     <Layout footer={<AddEntryMenu />} protectedRoute>
       <Stack.Screen options={{ title: 'Your Expenses' }} />
