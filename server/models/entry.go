@@ -67,8 +67,8 @@ func GetEntries(userId, bookId string) ([]Entry, error) {
 	return entries, nil
 }
 
-func UpdateEntry(userId, bookId string, entry Entry) (Entry, error) {
-	iter := client.Collection("entries").Where("Id", "==", entry.Id).Where("UserId", "==", userId).Documents(ctx)
+func UpdateEntry(userId, bookId string, entryToUpdate Entry) (Entry, error) {
+	iter := client.Collection("entries").Where("Id", "==", entryToUpdate.Id).Where("UserId", "==", userId).Documents(ctx)
 	defer iter.Stop()
 
 	doc, err := iter.Next()
@@ -79,7 +79,22 @@ func UpdateEntry(userId, bookId string, entry Entry) (Entry, error) {
 		return Entry{}, err
 	}
 
+	var entry Entry
+	if err := doc.DataTo(&entry); err != nil {
+		return Entry{}, fmt.Errorf("failed to parse entry data: %v", err.Error())
+	}
+
 	entry.UpdatedAt = time.Now()
+	entry.Amount = entryToUpdate.Amount
+	entry.Remark = entryToUpdate.Remark
+
+	if entryToUpdate.PaymentMode != "" {
+		entry.PaymentMode = entryToUpdate.PaymentMode
+	}
+	if entryToUpdate.Type != "" {
+		entry.Type = entryToUpdate.Type
+	}
+
 	_, err = doc.Ref.Set(ctx, entry)
 	if err != nil {
 		return Entry{}, err

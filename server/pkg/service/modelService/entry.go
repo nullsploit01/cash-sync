@@ -36,8 +36,6 @@ func AddEntry(userId, bookId string, entry models.Entry) (models.Entry, error) {
 }
 
 func UpdateEntry(userId, bookId string, entry models.Entry) (models.Entry, error) {
-	entry.BookId = bookId
-	entry.UserId = userId
 	updatedEntry, err := models.UpdateEntry(userId, bookId, entry)
 
 	if err != nil {
