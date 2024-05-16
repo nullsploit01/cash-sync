@@ -1,6 +1,8 @@
 package modelService
 
 import (
+	"sort"
+
 	"github.com/nullsploit01/cash-sync/models"
 )
 
@@ -9,6 +11,10 @@ func GetEntries(userId, bookId string) ([]models.Entry, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	sort.Slice(entries, func(i, j int) bool {
+		return entries[i].UpdatedAt.After(entries[j].UpdatedAt)
+	})
 
 	return entries, nil
 }
