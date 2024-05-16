@@ -8,10 +8,10 @@ import { IUpdateEntryMenuProps } from 'src/types/components/molecules'
 
 const UpdateEntryMenu = ({ entry, entryType }: IUpdateEntryMenuProps) => {
   const prevEntry = useRef(entry)
-  const { updateEntry, netWorth } = useEntryStore()
+  const { netWorth } = useEntryStore()
 
   const onUpdate = () => {
-    updateEntry({ ...entry, balanceOnEntry: getBalanceOnEntry() })
+    // updateEntry({ ...entry, : getBalanceOnEntry() })
     router.back()
   }
 

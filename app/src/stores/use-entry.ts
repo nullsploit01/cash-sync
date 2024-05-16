@@ -51,7 +51,7 @@ const useEntryStore = create<IEntryState & IEntryActions>((set) => ({
       let totalOut = 0
 
       updatedEntries.forEach((entry) => {
-        const amount = parseFloat(entry.amount)
+        const amount = entry.amount
 
         if (!isNaN(amount)) {
           if (entry.type === EntryTypes.CASH_IN) {

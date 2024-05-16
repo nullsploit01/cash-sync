@@ -23,7 +23,7 @@ export interface IEntry {
   id: string
   userId: string
   bookId: string
-  amount: string
+  amount: number
   remark: string
   paymentMode: PaymentModes
   type: EntryTypes

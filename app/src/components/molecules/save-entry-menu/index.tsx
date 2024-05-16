@@ -33,7 +33,7 @@ const SaveEntryMenu = ({ entry, entryType, setEntryValidation }: ISaveEntryMenuP
   // }
 
   const onSave = () => {
-    if (!entry.amount?.trim()) {
+    if (!entry.amount) {
       setEntryValidation({ amount: false })
       return
     }
@@ -43,7 +43,7 @@ const SaveEntryMenu = ({ entry, entryType, setEntryValidation }: ISaveEntryMenuP
   }
 
   const onSaveAndNew = () => {
-    if (!entry.amount?.trim()) {
+    if (!entry.amount) {
       setEntryValidation({ amount: false })
       return
     }

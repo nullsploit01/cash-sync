@@ -4,12 +4,12 @@ import { Card, Text, View, XStack } from 'tamagui'
 
 import Layout from 'src/components/layout'
 import EntryDetailsCard from 'src/components/molecules/entry-details-card'
-import useEntryStore from 'src/stores/use-entry'
+import useBookStore from 'src/stores/use-book'
 import { IEntry } from 'src/types/models'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 
 const EntryPage = () => {
-  const { entries } = useEntryStore()
+  const { entries } = useBookStore()
   const { id } = useLocalSearchParams()
 
   const [_entry, setEntry] = useState<IEntry>()

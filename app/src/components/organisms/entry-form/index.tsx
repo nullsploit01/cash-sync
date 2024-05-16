@@ -77,14 +77,14 @@ const EntryForm = ({ entry, setEntry, validation }: IEntryFormProps) => {
           onChange={(e) => {
             const value = e.nativeEvent.text?.replace(/[^0-9]/g, '')
             setEntry((prev) => {
-              return { ...prev, amount: value }
+              return { ...prev, amount: +value }
             })
           }}
           autoFocus
           error={!validation.amount}
           errorMessage="Please enter a valid amount, eg 132"
           autoComplete="off"
-          value={entry?.amount}
+          value={entry?.amount.toString()}
           keyboardType="numeric"
           placeholder="Amount"
           size="$5"
