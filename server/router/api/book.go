@@ -62,6 +62,33 @@ func AddBook(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, book)
 }
 
+func UpdateBookName(c *gin.Context) {
+	bookId := c.Param("bookId")
+	userId := authService.GetIdUserFromContext(c)
+
+	type updateBookNameRequest struct {
+		Name string `json:"name" binding:"required"`
+	}
+
+	var requestBody updateBookNameRequest
+
+	err := c.ShouldBindJSON(&requestBody)
+	if err != nil {
+		c.Error(errors.BadRequest(err.Error()))
+		c.Abort()
+		return
+	}
+
+	book, err := modelService.UpdateBookName(userId, bookId, requestBody.Name)
+	if err != nil {
+		c.Error(errors.BadRequest(err.Error()))
+		c.Abort()
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, book)
+}
+
 func DeleteBook(c *gin.Context) {
 	bookId := c.Param("bookId")
 	userId := authService.GetIdUserFromContext(c)

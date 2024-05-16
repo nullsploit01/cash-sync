@@ -66,6 +66,23 @@ func UpdateBalance(userId, bookId string) (models.Book, error) {
 	return book, nil
 }
 
+func UpdateBookName(userId, bookId, bookName string) (models.Book, error) {
+	book, err := models.GetBook(userId, bookId)
+	if err != nil {
+		return models.Book{}, err
+	}
+
+	book.Name = bookName
+
+	_, err = models.UpdateBook(userId, book)
+
+	if err != nil {
+		return models.Book{}, err
+	}
+
+	return book, nil
+}
+
 func DeleteBook(userId, bookId string) (models.Book, error) {
 	deletedBook, err := models.DeleteBook(userId, bookId)
 

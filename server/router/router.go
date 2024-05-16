@@ -36,6 +36,7 @@ func InitRouter() *gin.Engine {
 		bookRoutes.POST("/", api.AddBook)
 
 		bookRoutes.GET("/:bookId", api.GetBook)
+		bookRoutes.PUT("/:bookId", api.UpdateBookName)
 		bookRoutes.DELETE("/:bookId", api.DeleteBook)
 
 		entryRoutes := bookRoutes.Group("/:bookId/entries")
