@@ -84,5 +84,5 @@ func GetEntries(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	c.IndentedJSON(http.StatusAccepted, entries)
+	c.IndentedJSON(http.StatusOK, entries)
 }

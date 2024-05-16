@@ -15,7 +15,6 @@ export interface IBook {
   balance: number
   totalIn: number
   totalOut: number
-  enteredOn: Date
   createdAt: Date
   updatedAt: Date
 }
@@ -29,6 +28,7 @@ export interface IEntry {
   paymentMode: PaymentModes
   type: EntryTypes
   createdAt: Date
+  enteredOn: Date
   updatedAt: Date
 }
 

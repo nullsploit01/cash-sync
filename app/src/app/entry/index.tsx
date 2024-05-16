@@ -35,7 +35,7 @@ const EntryPage = () => {
               </XStack>
               <XStack justifyContent="flex-end">
                 <Text theme="alt2">
-                  On {getFormattedDate(_entry.updatedAt)}, {getFormattedTime(_entry.updatedAt)}
+                  On {getFormattedDate(_entry.enteredOn)}, {getFormattedTime(_entry.enteredOn)}
                 </Text>
               </XStack>
             </Card.Header>

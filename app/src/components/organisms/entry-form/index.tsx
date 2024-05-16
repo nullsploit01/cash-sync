@@ -16,10 +16,10 @@ const EntryForm = ({ entry, setEntry, validation }: IEntryFormProps) => {
   const prevDateRef = useRef(date)
 
   useEffect(() => {
-    if (prevDateRef.current !== date || !entry.updatedAt) {
+    if (prevDateRef.current !== date || !entry.enteredOn) {
       setEntry((prevEntry) => ({
         ...prevEntry,
-        updatedAt: date
+        enteredOn: date
       }))
     }
 
@@ -63,14 +63,14 @@ const EntryForm = ({ entry, setEntry, validation }: IEntryFormProps) => {
             startIcon={<CalendarDays size={16} strokeWidth="$0.25" />}
             endIcon={<ChevronDown size={16} strokeWidth="$0.5" />}
           >
-            {getFormattedDate(entry.updatedAt)}
+            {getFormattedDate(entry.enteredOn)}
           </PressableText>
           <PressableText
             onPress={() => showDatepicker('time')}
             startIcon={<Clock4 size={16} strokeWidth="$0.25" />}
             endIcon={<ChevronDown size={16} strokeWidth="$0.5" />}
           >
-            {getFormattedTime(entry.updatedAt)}
+            {getFormattedTime(entry.enteredOn)}
           </PressableText>
         </View>
         <InputField
@@ -84,7 +84,7 @@ const EntryForm = ({ entry, setEntry, validation }: IEntryFormProps) => {
           error={!validation.amount}
           errorMessage="Please enter a valid amount, eg 132"
           autoComplete="off"
-          value={entry?.amount.toString()}
+          value={entry?.amount?.toString()}
           keyboardType="numeric"
           placeholder="Amount"
           size="$5"

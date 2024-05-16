@@ -8,7 +8,7 @@ const EntryCard = ({ entry }: IEntryCardProps) => {
   return (
     <View>
       <View paddingHorizontal="$3" marginBottom="$2">
-        <Text>{getFormattedDate(entry.updatedAt)}</Text>
+        <Text>{getFormattedDate(entry.enteredOn)}</Text>
       </View>
       <Card>
         <Card.Header paddingHorizontal="$3">
@@ -33,7 +33,7 @@ const EntryCard = ({ entry }: IEntryCardProps) => {
           <Text>{entry.remark}</Text>
           <Separator marginVertical="$2" />
           <Text fontWeight="800">
-            Entry by You <Text theme="alt1">at {getFormattedTime(entry.updatedAt)}</Text>
+            Entry by You <Text theme="alt1">at {getFormattedTime(entry.enteredOn)}</Text>
           </Text>
         </Card.Header>
       </Card>

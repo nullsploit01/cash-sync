@@ -16,7 +16,7 @@ const AddEntryPage = () => {
   const [_entry, setEntry] = useState<IEntry>({ paymentMode: PaymentModes.ONLINE } as IEntry)
 
   useEffect(() => {
-    switch (+entryType) {
+    switch (entryType) {
       case EntryTypes.CASH_IN:
         setTitle({ title: 'Add Cash In Entry', color: 'green' })
         break
@@ -41,7 +41,7 @@ const AddEntryPage = () => {
         <SaveEntryMenu
           entry={_entry}
           setEntryValidation={setEntryValidation}
-          entryType={+entryType}
+          entryType={entryType}
         />
       }
       protectedRoute

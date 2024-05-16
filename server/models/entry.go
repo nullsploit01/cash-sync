@@ -14,8 +14,8 @@ type Entry struct {
 	BookId      string    `json:"bookId"`
 	Amount      int64     `json:"amount" binding:"required"`
 	Remark      string    `json:"remark"`
-	PaymentMode string    `json:"paymentMode" binding:"required,oneof=cash online"`
-	Type        string    `json:"type" binding:"required,oneof=cashin cashout"`
+	PaymentMode string    `json:"paymentMode" binding:"required,oneof=CASH ONLINE"`
+	Type        string    `json:"type" binding:"required,oneof=CASH_IN CASH_OUT"`
 	EnteredOn   time.Time `json:"enteredOn"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`

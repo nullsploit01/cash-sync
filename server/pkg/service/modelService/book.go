@@ -51,9 +51,9 @@ func UpdateBalance(userId, bookId string) (models.Book, error) {
 	var totalIn, totalOut int64
 
 	for _, entry := range entries {
-		if entry.Type == "cashin" {
+		if entry.Type == "CASH_IN" {
 			totalIn += entry.Amount
-		} else if entry.Type == "cashout" {
+		} else if entry.Type == "CASH_OUT" {
 			totalOut += entry.Amount
 		}
 	}
