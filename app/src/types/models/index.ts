@@ -15,6 +15,7 @@ export interface IBook {
   balance: number
   totalIn: number
   totalOut: number
+  enteredOn: Date
   createdAt: Date
   updatedAt: Date
 }

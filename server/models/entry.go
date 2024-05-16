@@ -16,6 +16,7 @@ type Entry struct {
 	Remark      string    `json:"remark"`
 	PaymentMode string    `json:"paymentMode" binding:"required,oneof=cash online"`
 	Type        string    `json:"type" binding:"required,oneof=cashin cashout"`
+	EnteredOn   time.Time `json:"enteredOn"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
 }
@@ -29,6 +30,7 @@ func AddEntry(userId, bookId string, entry Entry) (Entry, error) {
 		Remark:      entry.Remark,
 		PaymentMode: entry.PaymentMode,
 		Type:        entry.Type,
+		EnteredOn:   time.Now(),
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
 	}
@@ -93,6 +95,9 @@ func UpdateEntry(userId, bookId string, entryToUpdate Entry) (Entry, error) {
 	}
 	if entryToUpdate.Type != "" {
 		entry.Type = entryToUpdate.Type
+	}
+	if !entryToUpdate.EnteredOn.IsZero() {
+		entry.EnteredOn = entryToUpdate.EnteredOn
 	}
 
 	_, err = doc.Ref.Set(ctx, entry)
