@@ -9,7 +9,7 @@ const BalanceCard = () => {
 
   return (
     <Fragment>
-      {loading ? (
+      {loading || !currentBook ? (
         <Loading />
       ) : (
         <Card elevate marginVertical={10} width="100%">
