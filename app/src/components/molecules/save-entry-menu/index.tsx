@@ -20,8 +20,10 @@ const SaveEntryMenu = ({ entry, entryType, setEntryValidation }: ISaveEntryMenuP
         amount: entry.amount,
         remark: entry.remark,
         paymentMode: entry.paymentMode,
-        type: entryType as EntryTypes
+        type: entryType as EntryTypes,
+        enteredOn: entry.enteredOn
       }
+
       await addEntry(_entry as any)
     } catch (error) {
       if (!(error instanceof AxiosError)) {
