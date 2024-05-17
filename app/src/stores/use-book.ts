@@ -56,6 +56,19 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
     }
   },
 
+  editEntry: async (entry: IEntry) => {
+    if (get().currentBook) {
+      try {
+        get().setLoading(true)
+        const { data } = await entryService.updateEntry(get().currentBook.id, entry)
+        const filteredEntries = get().entries.filter((e) => e.id != entry.id)
+        set((state) => ({ entries: [data, ...filteredEntries] }))
+      } finally {
+        get().setLoading(false)
+      }
+    }
+  },
+
   setLoading: (value: boolean) => {
     set((state) => {
       const newLoadingCount = state.loadingCount + (value ? 1 : -1)

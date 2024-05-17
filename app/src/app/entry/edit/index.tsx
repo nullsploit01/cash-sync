@@ -1,5 +1,5 @@
-import { Stack, useFocusEffect, useLocalSearchParams } from 'expo-router'
-import React, { Fragment, useState } from 'react'
+import { Stack, useLocalSearchParams } from 'expo-router'
+import React, { Fragment, useEffect, useState } from 'react'
 import { View } from 'tamagui'
 
 import Layout from 'src/components/layout'
@@ -16,10 +16,10 @@ const EditEntryPage = () => {
   const { entries } = useBookStore()
   const [_entry, setEntry] = useState<IEntry>()
 
-  useFocusEffect(() => {
+  useEffect(() => {
     const entry = entries.find((e) => e.id === id)
     setEntry(entry)
-  })
+  }, [entries])
 
   return (
     <Fragment>

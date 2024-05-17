@@ -12,6 +12,6 @@ export const entryService = {
   },
 
   updateEntry: async (bookId: string, entry: IEntry) => {
-    return await httpClient.put<IEntry>(`/books/${bookId}/entries/${entry.id}`)
+    return await httpClient.put<IEntry>(`/books/${bookId}/entries/${entry.id}`, { ...entry })
   }
 }
