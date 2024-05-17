@@ -8,12 +8,10 @@ import { EntryTypes } from 'src/constants/entry'
 import { Routes } from 'src/constants/routes'
 import { useNotification } from 'src/hooks/use-notification'
 import useBookStore from 'src/stores/use-book'
-import useEntryStore from 'src/stores/use-entry'
 import { ISaveEntryMenuProps } from 'src/types/components/molecules'
 
 const SaveEntryMenu = ({ entry, entryType, setEntryValidation }: ISaveEntryMenuProps) => {
   const { showNotification } = useNotification()
-  const { netWorth } = useEntryStore()
   const { addEntry, loading } = useBookStore()
 
   const _addEntry = async () => {
