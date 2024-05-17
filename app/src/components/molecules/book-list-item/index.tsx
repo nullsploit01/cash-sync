@@ -1,16 +1,15 @@
-import { Book, MoreVertical } from '@tamagui/lucide-icons'
+import { Book } from '@tamagui/lucide-icons'
 import { router } from 'expo-router'
 import { TouchableOpacity } from 'react-native'
 import { Paragraph, Separator, Text, View, XStack, YStack } from 'tamagui'
 
 import { Routes } from 'src/constants/routes'
-import useBookStore from 'src/stores/use-book'
 import { IBookListItemProps } from 'src/types/components/molecules'
 import { getFormattedDate } from 'src/utils/date'
 
-const BookListItem = ({ book }: IBookListItemProps) => {
-  const { loading, setCurrentBook, entries, getEntries } = useBookStore()
+import BookMenu from '../book-menu'
 
+const BookListItem = ({ book }: IBookListItemProps) => {
   const handleBookPress = () => {
     router.navigate({ pathname: Routes.EntriesPage.link, params: { id: book.id } })
   }
@@ -36,9 +35,7 @@ const BookListItem = ({ book }: IBookListItemProps) => {
             <Text fontSize="$5" marginRight="$3" color={book.balance < 0 ? 'red' : 'green'}>
               {book.balance}
             </Text>
-            <TouchableOpacity>
-              <MoreVertical />
-            </TouchableOpacity>
+            <BookMenu />
           </XStack>
         </XStack>
       </TouchableOpacity>

@@ -1,4 +1,5 @@
 import { ClerkLoaded, ClerkLoading, ClerkProvider } from '@clerk/clerk-expo'
+import { PortalProvider } from '@tamagui/portal'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
@@ -36,17 +37,19 @@ const Root = () => {
       <ClerkProvider publishableKey={Environment.CLERK_PUBLISHABLE_KEY} tokenCache={tokenService}>
         <HttpInterceptor>
           <TamaguiProvider config={tamaguiConfig}>
-            <ClerkLoading>
-              <Loading />
-            </ClerkLoading>
-            <ClerkLoaded>
-              <Stack
-                screenOptions={{
-                  headerTitleStyle: { fontWeight: '500' },
-                  headerRight: (p) => <AppMenu />
-                }}
-              />
-            </ClerkLoaded>
+            <PortalProvider shouldAddRootHost>
+              <ClerkLoading>
+                <Loading />
+              </ClerkLoading>
+              <ClerkLoaded>
+                <Stack
+                  screenOptions={{
+                    headerTitleStyle: { fontWeight: '500' },
+                    headerRight: (p) => <AppMenu />
+                  }}
+                />
+              </ClerkLoaded>
+            </PortalProvider>
           </TamaguiProvider>
         </HttpInterceptor>
       </ClerkProvider>
