@@ -2,6 +2,7 @@ import { create } from 'zustand'
 
 import { bookService } from 'src/services/api/book'
 import { entryService } from 'src/services/api/entry'
+import { IEntry } from 'src/types/models'
 import { IBookStoreActions, IBookStoreState } from 'src/types/stores'
 
 const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => ({
@@ -40,6 +41,18 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
       set({ currentBook: data })
     } finally {
       get().setLoading(false)
+    }
+  },
+
+  addEntry: async (entry: IEntry) => {
+    if (get().currentBook) {
+      try {
+        get().setLoading(true)
+        const { data } = await entryService.addEntry(get().currentBook.id, entry)
+        set((state) => ({ entries: [data, ...state.entries] }))
+      } finally {
+        get().setLoading(false)
+      }
     }
   },
 

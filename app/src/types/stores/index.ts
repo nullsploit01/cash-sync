@@ -28,5 +28,6 @@ export interface IBookStoreActions {
   getBooks: () => Promise<void>
   getEntries: () => Promise<void>
   setCurrentBook: (id: string) => Promise<void>
+  addEntry: (entry: IEntry) => Promise<void>
   setLoading: (value: boolean) => void
 }

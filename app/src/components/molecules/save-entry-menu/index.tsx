@@ -1,36 +1,40 @@
+import { AxiosError } from 'axios'
 import { router } from 'expo-router'
+import { Fragment } from 'react'
 import { Button, XStack } from 'tamagui'
 
+import Loading from 'src/components/organisms/loading'
+import { EntryTypes } from 'src/constants/entry'
 import { Routes } from 'src/constants/routes'
+import { useNotification } from 'src/hooks/use-notification'
+import useBookStore from 'src/stores/use-book'
 import useEntryStore from 'src/stores/use-entry'
 import { ISaveEntryMenuProps } from 'src/types/components/molecules'
 
 const SaveEntryMenu = ({ entry, entryType, setEntryValidation }: ISaveEntryMenuProps) => {
-  const { addEntry, netWorth } = useEntryStore()
+  const { showNotification } = useNotification()
+  const { netWorth } = useEntryStore()
+  const { addEntry, loading } = useBookStore()
 
-  const _addEntry = () => {
-    // const _entry: IEntry = {
-    //   id: generateRandomId(),
-    //   amount: entry.amount,
-    //   remark: entry.remark,
-    //   paymentMode: entry.paymentMode,
-    //   balanceOnEntry: getBalanceOnEntry(),
-    //   type: +entryType as EntryTypes
-    // }
-    // addEntry(_entry)
+  const _addEntry = async () => {
+    try {
+      const _entry = {
+        amount: entry.amount,
+        remark: entry.remark,
+        paymentMode: entry.paymentMode,
+        type: entryType as EntryTypes
+      }
+      await addEntry(_entry as any)
+    } catch (error) {
+      if (!(error instanceof AxiosError)) {
+        showNotification({
+          title: 'Oops!',
+          message: 'Something went wrong, please try again',
+          type: 'error'
+        })
+      }
+    }
   }
-
-  // const getBalanceOnEntry = () => {
-  //   if (!entry?.amount) {
-  //     return 0
-  //   }
-
-  //   if (entryType === EntryTypes.CASH_OUT) {
-  //     return netWorth.netBalance - +entry.amount
-  //   }
-
-  //   return netWorth.netBalance + +entry.amount
-  // }
 
   const onSave = () => {
     if (!entry.amount) {
@@ -39,7 +43,7 @@ const SaveEntryMenu = ({ entry, entryType, setEntryValidation }: ISaveEntryMenuP
     }
 
     _addEntry()
-    router.navigate({ pathname: Routes.HomePage.link })
+    router.navigate({ pathname: Routes.EntriesPage.link, params: { id: entry.bookId } })
   }
 
   const onSaveAndNew = () => {
@@ -53,14 +57,20 @@ const SaveEntryMenu = ({ entry, entryType, setEntryValidation }: ISaveEntryMenuP
   }
 
   return (
-    <XStack justifyContent="space-between" padding={20} backgroundColor="#FEFBF6">
-      <Button onPress={onSaveAndNew} width="55%" size="$5">
-        Save & Add New
-      </Button>
-      <Button onPress={onSave} width="35%" size="$5">
-        Save
-      </Button>
-    </XStack>
+    <Fragment>
+      {loading ? (
+        <Loading />
+      ) : (
+        <XStack justifyContent="space-between" padding={20} backgroundColor="#FEFBF6">
+          <Button onPress={onSaveAndNew} width="55%" size="$5">
+            Save & Add New
+          </Button>
+          <Button onPress={onSave} width="35%" size="$5">
+            Save
+          </Button>
+        </XStack>
+      )}
+    </Fragment>
   )
 }
 
