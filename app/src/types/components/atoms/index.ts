@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
-import { InputFrameProps, ViewProps } from 'tamagui'
+import { TouchableProps } from 'react-native-svg'
+import { InputFrameProps, PopoverProps, ViewProps } from 'tamagui'
 
 export interface IInputFieldProps extends InputFrameProps {
   error?: boolean
@@ -15,4 +16,13 @@ export interface IPressableTextProps extends ViewProps {
 
 export interface IBadgeProps extends ViewProps {
   children?: ReactNode
+}
+
+export interface ISheetPopoverProps extends PopoverProps {
+  content: ReactNode
+  children: ReactNode
+}
+
+export interface IIconButtonProps extends TouchableProps {
+  icon: ReactNode
 }

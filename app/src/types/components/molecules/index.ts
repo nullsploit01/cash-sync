@@ -27,3 +27,7 @@ export interface IPaymentModeBadgeProps extends IBadgeProps {
 export interface IBookListItemProps {
   book: IBook
 }
+
+export interface IBookMenuProps {
+  book: IBook
+}

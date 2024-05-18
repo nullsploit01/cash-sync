@@ -45,7 +45,7 @@ const Root = () => {
                 <Stack
                   screenOptions={{
                     headerTitleStyle: { fontWeight: '500' },
-                    headerRight: (p) => <AppMenu />
+                    headerRight: (_) => <AppMenu />
                   }}
                 />
               </ClerkLoaded>
