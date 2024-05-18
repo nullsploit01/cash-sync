@@ -13,5 +13,13 @@ export const bookService = {
 
   addBook: async (name: string) => {
     return await httpClient.post<IBook>('/books', { name })
+  },
+
+  updateBook: async (book: IBook) => {
+    return await httpClient.put<IBook>(`/books/${book.id}`, { ...book })
+  },
+
+  deleteBook: async (id: string) => {
+    return await httpClient.delete<IBook>(`/books/${id}`)
   }
 }

@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 import { bookService } from 'src/services/api/book'
 import { entryService } from 'src/services/api/entry'
-import { IEntry } from 'src/types/models'
+import { IBook, IEntry } from 'src/types/models'
 import { IBookStoreActions, IBookStoreState } from 'src/types/stores'
 
 const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => ({
@@ -44,6 +44,28 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
     }
   },
 
+  editBook: async (book: IBook) => {
+    try {
+      get().setLoading(true)
+      const { data } = await bookService.updateBook(book)
+      const filteredBooks = get().books.filter((b) => b.id != data.id)
+      set({ books: [data, ...filteredBooks] })
+    } finally {
+      get().setLoading(false)
+    }
+  },
+
+  removeBook: async (id: string) => {
+    try {
+      get().setLoading(true)
+      const { data } = await bookService.deleteBook(id)
+      const filteredBooks = get().books.filter((b) => b.id != data.id)
+      set({ books: [...filteredBooks] })
+    } finally {
+      get().setLoading(false)
+    }
+  },
+
   addEntry: async (entry: IEntry) => {
     if (get().currentBook) {
       try {
@@ -62,7 +84,7 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
         get().setLoading(true)
         const { data } = await entryService.updateEntry(get().currentBook.id, entry)
         const filteredEntries = get().entries.filter((e) => e.id != entry.id)
-        set((state) => ({ entries: [data, ...filteredEntries] }))
+        set(() => ({ entries: [data, ...filteredEntries] }))
       } finally {
         get().setLoading(false)
       }
