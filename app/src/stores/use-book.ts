@@ -58,9 +58,9 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
   removeBook: async (id: string) => {
     try {
       get().setLoading(true)
-      const { data } = await bookService.deleteBook(id)
-      const filteredBooks = get().books.filter((b) => b.id != data.id)
+      const filteredBooks = get().books.filter((b) => b.id != id)
       set({ books: [...filteredBooks] })
+      await bookService.deleteBook(id)
     } finally {
       get().setLoading(false)
     }
