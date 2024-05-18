@@ -1,4 +1,4 @@
-import { Check } from '@tamagui/lucide-icons'
+import { Check, X } from '@tamagui/lucide-icons'
 import { Fragment, useEffect, useState } from 'react'
 import { Text, View, XStack, YStack } from 'tamagui'
 
@@ -26,6 +26,11 @@ const BookMenu = ({ book }: IBookMenuProps) => {
     editBook({ ...book, name: _book.name })
   }
 
+  const handleDiscardName = () => {
+    setEditMode({ name: false })
+    setBook({ name: book?.name })
+  }
+
   return (
     <Fragment>
       {!book ? (
@@ -39,7 +44,7 @@ const BookMenu = ({ book }: IBookMenuProps) => {
                   <InputField
                     placeholder="Name"
                     value={_book.name}
-                    width="80%"
+                    width="70%"
                     onChange={(e) => {
                       const value = e.nativeEvent.text
                       setBook((prev) => {
@@ -47,7 +52,10 @@ const BookMenu = ({ book }: IBookMenuProps) => {
                       })
                     }}
                   />
-                  <IconButton onPress={handleSaveName} icon={<Check />} />
+                  <XStack gap="$2">
+                    <IconButton onPress={handleSaveName} icon={<Check color="green" />} />
+                    <IconButton onPress={handleDiscardName} icon={<X color="red" />} />
+                  </XStack>
                 </Fragment>
               ) : (
                 <Fragment>
