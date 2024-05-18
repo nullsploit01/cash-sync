@@ -6,9 +6,12 @@ import IconButton from 'src/components/atoms/icon-button'
 import InputField from 'src/components/atoms/input'
 import PressableText from 'src/components/atoms/pressable-text'
 import Loading from 'src/components/organisms/loading'
+import useBookStore from 'src/stores/use-book'
 import { IBookMenuProps } from 'src/types/components/molecules'
 
 const BookMenu = ({ book }: IBookMenuProps) => {
+  const { editBook } = useBookStore()
+
   const [_book, setBook] = useState({
     name: book?.name
   })
@@ -18,8 +21,9 @@ const BookMenu = ({ book }: IBookMenuProps) => {
     setBook({ name: book?.name })
   }, [])
 
-  const handleSaveName = () => {
+  const handleSaveName = async () => {
     setEditMode({ name: false })
+    editBook({ ...book, name: _book.name })
   }
 
   return (

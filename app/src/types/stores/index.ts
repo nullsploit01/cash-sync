@@ -27,6 +27,7 @@ export interface IBookStoreState {
 export interface IBookStoreActions {
   getBooks: () => Promise<void>
   editBook: (book: IBook) => Promise<void>
+  removeBook: (id: string) => void
   getEntries: () => Promise<void>
   setCurrentBook: (id: string) => Promise<void>
   addEntry: (entry: IEntry) => Promise<void>
