@@ -12,6 +12,16 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
   loading: false,
   loadingCount: 0,
 
+  addBook: async (bookName: string) => {
+    try {
+      get().setLoading(true)
+      const { data } = await bookService.addBook(bookName)
+      set((state) => ({ books: [data, ...state.books] }))
+    } finally {
+      get().setLoading(false)
+    }
+  },
+
   getBooks: async () => {
     try {
       get().setLoading(true)
