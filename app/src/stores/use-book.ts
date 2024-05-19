@@ -102,6 +102,7 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
 
   addEntry: async (entry: IEntry) => {
     if (get().currentBook) {
+      const tempId = generateRandomId()
       set((s) => ({
         entries: [
           {
@@ -109,13 +110,14 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
             enteredOn: new Date(),
             createdAt: new Date(),
             updatedAt: new Date(),
-            id: generateRandomId()
+            id: tempId
           },
           ...s.entries
         ]
       }))
+      get().updateCurrentBookBalance()
       const { data } = await entryService.addEntry(get().currentBook.id, entry)
-      set((s) => ({ entries: [data, ...s.entries] }))
+      set((s) => ({ entries: [data, ...s.entries.filter((e) => e.id !== tempId)] }))
     }
   },
 
@@ -123,6 +125,7 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
     if (get().currentBook) {
       const filteredEntries = get().entries.filter((e) => e.id != entry.id)
       set(() => ({ entries: [entry, ...filteredEntries] }))
+      get().updateCurrentBookBalance()
       const { data } = await entryService.updateEntry(get().currentBook.id, entry)
       set(() => ({ entries: [data, ...filteredEntries] }))
     }

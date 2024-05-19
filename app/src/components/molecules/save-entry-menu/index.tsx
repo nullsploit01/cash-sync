@@ -12,7 +12,7 @@ import { ISaveEntryMenuProps } from 'src/types/components/molecules'
 
 const SaveEntryMenu = ({ entry, entryType, setEntryValidation }: ISaveEntryMenuProps) => {
   const { showNotification } = useNotification()
-  const { addEntry, loading, updateCurrentBookBalance } = useBookStore()
+  const { addEntry, loading } = useBookStore()
 
   const _addEntry = async () => {
     try {
@@ -25,7 +25,6 @@ const SaveEntryMenu = ({ entry, entryType, setEntryValidation }: ISaveEntryMenuP
       }
 
       await addEntry(_entry as any)
-      updateCurrentBookBalance()
     } catch (error) {
       if (!(error instanceof AxiosError)) {
         showNotification({
