@@ -35,10 +35,23 @@ const EntryPage = () => {
               </XStack>
               <XStack justifyContent="flex-end">
                 <Text theme="alt2">
-                  On {getFormattedDate(_entry.enteredOn)}, {getFormattedTime(_entry.enteredOn)}
+                  On {getFormattedDate(_entry.createdAt)}, {getFormattedTime(_entry.createdAt)}
                 </Text>
               </XStack>
             </Card.Header>
+            {_entry.createdAt !== _entry.updatedAt && (
+              <Card.Header>
+                <XStack justifyContent="space-between" alignItems="center">
+                  <Text theme="alt1">Updated By</Text>
+                  <Text fontWeight="800"> You</Text>
+                </XStack>
+                <XStack justifyContent="flex-end">
+                  <Text theme="alt2">
+                    On {getFormattedDate(_entry.updatedAt)}, {getFormattedTime(_entry.updatedAt)}
+                  </Text>
+                </XStack>
+              </Card.Header>
+            )}
           </Card>
         </View>
       )}
