@@ -5,6 +5,7 @@ import { bookService } from 'src/services/api/book'
 import { entryService } from 'src/services/api/entry'
 import { IBook, IEntry } from 'src/types/models'
 import { IBookStoreActions, IBookStoreState } from 'src/types/stores'
+import { generateRandomId } from 'src/utils/general'
 
 const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => ({
   books: [],
@@ -71,7 +72,7 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
       updatedAt: new Date()
     }
 
-    set((s) => ({
+    set(() => ({
       currentBook: updatedCurrentBook,
       books: [...filteredBooks, updatedCurrentBook]
     }))
@@ -101,26 +102,29 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
 
   addEntry: async (entry: IEntry) => {
     if (get().currentBook) {
-      try {
-        get().setLoading(true)
-        const { data } = await entryService.addEntry(get().currentBook.id, entry)
-        set((state) => ({ entries: [data, ...state.entries] }))
-      } finally {
-        get().setLoading(false)
-      }
+      set((s) => ({
+        entries: [
+          {
+            ...entry,
+            enteredOn: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            id: generateRandomId()
+          },
+          ...s.entries
+        ]
+      }))
+      const { data } = await entryService.addEntry(get().currentBook.id, entry)
+      set((s) => ({ entries: [data, ...s.entries] }))
     }
   },
 
   editEntry: async (entry: IEntry) => {
     if (get().currentBook) {
-      try {
-        get().setLoading(true)
-        const { data } = await entryService.updateEntry(get().currentBook.id, entry)
-        const filteredEntries = get().entries.filter((e) => e.id != entry.id)
-        set(() => ({ entries: [data, ...filteredEntries] }))
-      } finally {
-        get().setLoading(false)
-      }
+      const filteredEntries = get().entries.filter((e) => e.id != entry.id)
+      set(() => ({ entries: [entry, ...filteredEntries] }))
+      const { data } = await entryService.updateEntry(get().currentBook.id, entry)
+      set(() => ({ entries: [data, ...filteredEntries] }))
     }
   },
 
