@@ -124,6 +124,16 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
     }
   },
 
+  removeEntry: async (id: string) => {
+    if (get().currentBook) {
+      const filteredEntries = get().entries.filter((e) => e.id != id)
+      set(() => ({ entries: [...filteredEntries] }))
+      get().updateCurrentBookBalance()
+
+      await entryService.deleteEntry(get().currentBook.id, id)
+    }
+  },
+
   setLoading: (value: boolean) => {
     set((state) => {
       const newLoadingCount = state.loadingCount + (value ? 1 : -1)

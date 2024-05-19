@@ -7,12 +7,20 @@ import PressableText from 'src/components/atoms/pressable-text'
 import PaymentModeBadge from 'src/components/molecules/payment-mode-badge'
 import { EntryTypes } from 'src/constants/entry'
 import { Routes } from 'src/constants/routes'
+import useBookStore from 'src/stores/use-book'
 import { IEntryDetailsCardProps } from 'src/types/components/molecules'
 import { getFormattedDate, getFormattedTime } from 'src/utils/date'
 
 const EntryDetailsCard = ({ entry }: IEntryDetailsCardProps) => {
+  const { removeEntry } = useBookStore()
+
   const onEditPress = () => {
     router.navigate({ pathname: Routes.EditEntryPage.link, params: { id: entry.id } })
+  }
+
+  const onRemovePress = () => {
+    removeEntry(entry.id)
+    router.back()
   }
 
   return (
@@ -37,11 +45,14 @@ const EntryDetailsCard = ({ entry }: IEntryDetailsCardProps) => {
         </XStack>
       </View>
       <Separator marginVertical="$3" borderWidth="$0.25" borderColor="$gray9" />
-      <View justifyContent="center" alignItems="center" marginTop="$1" marginBottom="$3">
-        <PressableText onPress={onEditPress} startIcon={<Pencil />}>
-          Edit Entry
+      <XStack justifyContent="space-around" alignItems="center" marginTop="$1" marginBottom="$3">
+        <PressableText onPress={onEditPress} startIcon={<Pencil color="$blue10" />}>
+          <Text color="$blue10">Edit Entry</Text>
         </PressableText>
-      </View>
+        <PressableText onPress={onRemovePress} startIcon={<Pencil color="$red10" />}>
+          <Text color="$red10">Remove Entry</Text>
+        </PressableText>
+      </XStack>
     </Card>
   )
 }

@@ -13,5 +13,9 @@ export const entryService = {
 
   updateEntry: async (bookId: string, entry: IEntry) => {
     return await httpClient.put<IEntry>(`/books/${bookId}/entries/${entry.id}`, { ...entry })
+  },
+
+  deleteEntry: async (bookId: string, entryId: string) => {
+    return await httpClient.delete<IEntry>(`/books/${bookId}/entries/${entryId}`)
   }
 }
