@@ -10,6 +10,9 @@ import { IBookListProps } from 'src/types/components/organisms'
 
 const BookList = ({ books }: IBookListProps) => {
   const { addBook } = useBookStore()
+  const sortedBooks = books.sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+  )
 
   const [_bookName, setBookName] = useState('')
 
@@ -72,7 +75,7 @@ const BookList = ({ books }: IBookListProps) => {
           </View>
         </SheetPopover>
       </XStack>
-      {books.map((book) => {
+      {sortedBooks.map((book) => {
         return <BookListItem book={book} key={book.id} />
       })}
     </View>

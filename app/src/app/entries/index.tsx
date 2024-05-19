@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios'
-import { Stack, useLocalSearchParams } from 'expo-router'
+import { Stack } from 'expo-router'
 import { Fragment, useEffect } from 'react'
 import { Separator, XStack } from 'tamagui'
 
@@ -12,27 +12,23 @@ import { useNotification } from 'src/hooks/use-notification'
 import useBookStore from 'src/stores/use-book'
 
 const EntriesPage = () => {
-  const { id } = useLocalSearchParams()
   const { showNotification } = useNotification()
-  const { entries, setCurrentBook, getEntries, loading } = useBookStore()
+  const { entries, getEntries, loading } = useBookStore()
 
   useEffect(() => {
     _getEntries()
   }, [])
 
   const _getEntries = async () => {
-    if (typeof id === 'string') {
-      try {
-        await setCurrentBook(id)
-        await getEntries()
-      } catch (error) {
-        if (!(error instanceof AxiosError)) {
-          showNotification({
-            title: 'Oops!',
-            message: 'Something went wrong, please try again',
-            type: 'error'
-          })
-        }
+    try {
+      await getEntries()
+    } catch (error) {
+      if (!(error instanceof AxiosError)) {
+        showNotification({
+          title: 'Oops!',
+          message: 'Something went wrong, please try again',
+          type: 'error'
+        })
       }
     }
   }

@@ -1,11 +1,15 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { Card, Separator, SizableText, XStack, YStack } from 'tamagui'
 
 import Loading from 'src/components/organisms/loading'
 import useBookStore from 'src/stores/use-book'
 
 const BalanceCard = () => {
-  const { currentBook, loading } = useBookStore()
+  const { currentBook, loading, entries, setCurrentBook } = useBookStore()
+
+  useEffect(() => {
+    // setCurrentBook(currentBook.id)
+  }, [entries])
 
   return (
     <Fragment>

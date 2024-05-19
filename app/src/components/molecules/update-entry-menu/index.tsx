@@ -6,11 +6,12 @@ import Loading from 'src/components/organisms/loading'
 import useBookStore from 'src/stores/use-book'
 import { IUpdateEntryMenuProps } from 'src/types/components/molecules'
 
-const UpdateEntryMenu = ({ entry, entryType }: IUpdateEntryMenuProps) => {
-  const { editEntry, loading } = useBookStore()
+const UpdateEntryMenu = ({ entry }: IUpdateEntryMenuProps) => {
+  const { editEntry, loading, updateCurrentBookBalance } = useBookStore()
 
   const onUpdate = async () => {
     await editEntry(entry)
+    updateCurrentBookBalance()
     router.back()
   }
 

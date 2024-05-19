@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 
+import { EntryTypes } from 'src/constants/entry'
 import { bookService } from 'src/services/api/book'
 import { entryService } from 'src/services/api/entry'
 import { IBook, IEntry } from 'src/types/models'
@@ -45,13 +46,35 @@ const useBookStore = create<IBookStoreState & IBookStoreActions>((set, get) => (
   },
 
   setCurrentBook: async (id: string) => {
-    try {
-      get().setLoading(true)
-      const { data } = await bookService.getBook(id)
-      set({ currentBook: data })
-    } finally {
-      get().setLoading(false)
+    const currentBook = get().books.find((b) => b.id == id)
+    set({ currentBook })
+  },
+
+  updateCurrentBookBalance: () => {
+    let totalIn: number = 0
+    let totalOut: number = 0
+
+    get().entries.map((e) => {
+      if (e.type === EntryTypes.CASH_IN) {
+        totalIn += e.amount
+      } else if (e.type === EntryTypes.CASH_OUT) {
+        totalOut += e.amount
+      }
+    })
+
+    const filteredBooks = get().books.filter((b) => b.id != get().currentBook.id)
+    const updatedCurrentBook: IBook = {
+      ...get().currentBook,
+      totalIn,
+      totalOut,
+      balance: totalIn - totalOut,
+      updatedAt: new Date()
     }
+
+    set((s) => ({
+      currentBook: updatedCurrentBook,
+      books: [...filteredBooks, updatedCurrentBook]
+    }))
   },
 
   editBook: async (book: IBook) => {
